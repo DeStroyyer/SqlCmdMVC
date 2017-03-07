@@ -4,6 +4,7 @@ import dao.daoInterface.Dao;
 import dao.daoInterface.DaoFactory;
 import jdk.nashorn.internal.runtime.regexp.JoniRegExp;
 import org.junit.*;
+import utils.GetProperties;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,10 +13,8 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class ManagerDaoTest {
-    private String driver = "org.h2.Driver";
-    private String url = "jdbc:h2:mem:sqlcmd;DB_CLOSE_DELAY=-1";
-    private String user = "";
-    private String password = "";
+
+    GetProperties properties=new GetProperties();
     DaoFactory factory;
     Dao dao;
 
@@ -23,7 +22,7 @@ public class ManagerDaoTest {
     public void prepare() throws SQLException {
         String[] createParams = {"name", "email", "password"};
         String[] insertParams = {"1", "Rostyslav", "rostyslavpaliuha@gmail.com", "1111"};
-        factory = new ManagerDaoFactory(driver, url, user, password);
+        factory = new ManagerDaoFactory(properties.getDriver(), properties.getUrl(), properties.getUser(), properties.getPassword());
         dao = factory.getManagerDao();
         dao.create("USER");
         dao.insert("USER", insertParams);
