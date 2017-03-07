@@ -6,13 +6,13 @@ import java.util.List;
 public interface Service {
     String connect(String dbName, String userName, String password) throws SQLException;
 
-    String tables();
+    String tables() throws SQLException;
 
-    String clear(String tableName);
+    String clear(String tableName) throws SQLException;
 
-    String drop(String tableName);
+    String drop(String tableName) throws SQLException;
 
-    String create(String tableName, String... columns);
+    String create(String tableName) throws SQLException;
 
-    List<List<String>> find(String tableName);
+    String find(String tableName) throws SQLException;
 }
