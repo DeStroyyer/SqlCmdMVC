@@ -1,7 +1,7 @@
 package controller;
 
 import service.Service;
-import utils.GetProperties;
+import utils.ConnectProperty;
 import view.View;
 
 import java.sql.SQLException;
@@ -54,7 +54,7 @@ public class ManagerController implements Controller {
     }
 
     private void connect(String[] parsed) {
-        GetProperties properties = new GetProperties();
+        ConnectProperty properties = new ConnectProperty();
         if (parsed.length == 3) {
 
             String driver = properties.getDriver();

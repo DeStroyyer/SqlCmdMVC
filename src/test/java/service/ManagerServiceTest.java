@@ -3,7 +3,7 @@ package service;
 
 import org.junit.Before;
 import org.junit.Test;
-import utils.GetProperties;
+import utils.ConnectProperty;
 
 import java.sql.SQLException;
 
@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 
 public class ManagerServiceTest {
 
-    private GetProperties properties = new GetProperties();
+    private ConnectProperty properties = new ConnectProperty();
     private Service service = new ManagerService();
     private String connect;
 

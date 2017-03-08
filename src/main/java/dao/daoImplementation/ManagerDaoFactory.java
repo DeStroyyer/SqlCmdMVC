@@ -1,7 +1,7 @@
 package dao.daoImplementation;
 
-import dao.daoInterface.Dao;
-import dao.daoInterface.DaoFactory;
+import dao.Dao;
+import dao.DaoFactory;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

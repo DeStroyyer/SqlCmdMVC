@@ -1,4 +1,4 @@
-package dao.daoInterface;
+package dao;
 
 import model.User;
 

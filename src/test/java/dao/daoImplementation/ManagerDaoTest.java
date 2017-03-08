@@ -1,9 +1,9 @@
 package dao.daoImplementation;
 
-import dao.daoInterface.Dao;
-import dao.daoInterface.DaoFactory;
+import dao.Dao;
+import dao.DaoFactory;
 import org.junit.*;
-import utils.GetProperties;
+import utils.ConnectProperty;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
 
 public class ManagerDaoTest {
 
-    GetProperties properties = new GetProperties();
+    ConnectProperty properties = new ConnectProperty();
     DaoFactory factory;
     Dao dao;
 

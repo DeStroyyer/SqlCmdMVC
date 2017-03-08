@@ -1,8 +1,8 @@
 package service;
 
 import dao.daoImplementation.ManagerDaoFactory;
-import dao.daoInterface.Dao;
-import dao.daoInterface.DaoFactory;
+import dao.Dao;
+import dao.DaoFactory;
 import model.User;
 
 import java.sql.Connection;
