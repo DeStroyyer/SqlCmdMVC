@@ -1,11 +1,11 @@
 package controller;
 
 import service.Service;
+import utils.GetProperties;
 import view.View;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class ManagerController implements Controller {
     private String inputCommand;
@@ -41,53 +41,111 @@ public class ManagerController implements Controller {
             find(parseInput(input));
         } else if (input.startsWith("input")) {
             input(parseInput(input));
+        } else if (input.equals("help")) {
+            help();
+        } else {
+            view.write("Input exist command, or help to see command list");
         }
     }
 
-    private List parseInput(String inputCommand) {
-        List<String> result = new ArrayList<>();
-        for (String cut : inputCommand.split(".")) {
-            result.add(cut);
-        }
+    private String[] parseInput(String inputCommand) {
+        String[] result = inputCommand.split("[.]");
         return result;
     }
 
-    private void connect(List<String> parsed) {
-        String driver = (parsed.get(1).equals("H2")) ? "org.h2.Driver" : "org.postgresql.Driver";
-        String url = parsed.get(2);
-        String userName = parsed.get(3);
-        String password = parsed.get(4);
-        try {
-            service.connect(driver, url, userName, password);
-        } catch (SQLException e) {
-            view.write("Some problem with params");
+    private void connect(String[] parsed) {
+        GetProperties properties = new GetProperties();
+        if (parsed.length == 3) {
+
+            String driver = properties.getDriver();
+            String url = properties.getUrl();
+            String userName = parsed[1];
+            String password = parsed[2];
+            try {
+                view.write(service.connect(driver, url, userName, password));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            view.write("Not enough parameters.");
         }
     }
 
-    private void clear(List<String> parsed) throws SQLException {
-        String tableName = parsed.get(1);
-        service.clear(tableName);
+    private void clear(String[] parsed) throws SQLException {
+        if (parsed.length == 2) {
+            try {
+                String tableName = parsed[1];
+                service.clear(tableName);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            view.write("Amount of parameters not correct.");
+        }
     }
 
-    private void drop(List<String> parsed) throws SQLException {
-        String tableName = parsed.get(1);
-        service.clear(tableName);
+    private void drop(String[] parsed) {
+        if (parsed.length == 2) {
+            try {
+                String tableName = parsed[1];
+                service.clear(tableName);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            view.write("Amount of parameters not correct.");
+        }
     }
 
-    private void create(List<String> parsed) throws SQLException {
-        String tableName = parsed.get(1);
-        service.create(tableName);
+    private void create(String[] parsed) {
+        if (parsed.length == 2) {
+            try {
+                String tableName = parsed[1];
+                view.write(service.create(tableName));
+            } catch (SQLException e) {
+
+            }
+        } else {
+            view.write("Amount of parameters not correct.");
+        }
     }
 
-    private void find(List<String> parsed) throws SQLException {
-        String tableName = parsed.get(1);
-        service.find(tableName);
+    private void find(String[] parsed) {
+        if (parsed.length == 2) {
+            try {
+                String tableName = parsed[1];
+                service.find(tableName);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            view.write("Amount of parameters not correct.");
+        }
     }
 
-    private void input(List<String> parsed) throws SQLException {
-        String tableName = parsed.get(1);
-        String[] params = {parsed.get(2), parsed.get(3), parsed.get(4), parsed.get(5)};
-        service.input(tableName, params);
+    private void input(String[] parsed) {
+        if (parsed.length == 6) {
+            try {
+                String tableName = parsed[1];
+                String[] params = {parsed[2], parsed[3], parsed[4], parsed[5]};
+                service.input(tableName, params);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            view.write("Amount of parameters not correct.");
+        }
+    }
+
+    private void help() {
+
+        view.write("Existed commands:" +
+                "connect-connect to db, example: connect.user.password\n" +
+                "clear-delete all data from table, example: clear.tablename\n" +
+                "drop-remove table from db, example: drop.tablename\n" +
+                "create-create table with specific name, example: create.tablename\n" +
+                "find-show content from table, example: find.tablename\n" +
+                "input-enter data about user, example: input.id.username.email.password\n");
     }
 
 }
