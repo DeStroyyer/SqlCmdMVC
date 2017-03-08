@@ -2,7 +2,6 @@ package dao.daoImplementation;
 
 import dao.daoInterface.Dao;
 import dao.daoInterface.DaoFactory;
-import jdk.nashorn.internal.runtime.regexp.JoniRegExp;
 import org.junit.*;
 import utils.GetProperties;
 
@@ -14,7 +13,7 @@ import static org.junit.Assert.*;
 
 public class ManagerDaoTest {
 
-    GetProperties properties=new GetProperties();
+    GetProperties properties = new GetProperties();
     DaoFactory factory;
     Dao dao;
 

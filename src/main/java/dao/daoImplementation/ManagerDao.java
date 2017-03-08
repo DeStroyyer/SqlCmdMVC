@@ -31,7 +31,7 @@ public class ManagerDao implements Dao {
 
     @Override
     public String delete(String tableName) throws SQLException {
-        String query = "DELETE FROM PUBLIC." + tableName;
+        String query = "DELETE FROM " + tableName;
         try (Connection connection = factory.getConnection();
              Statement statement = connection.createStatement()) {
             int deletedRows = statement.executeUpdate(query);
