@@ -11,12 +11,13 @@ import java.sql.SQLException;
 import static org.junit.Assert.*;
 
 public class ManagerDaoFactoryTest {
-    ConnectProperty properties = new ConnectProperty();
-    DaoFactory factory = new ManagerDaoFactory(properties.getDriver(), properties.getUrl(), properties.getUser(), properties.getPassword());
+    ConnectProperty properties = new ConnectProperty("connect.properties");
+    DaoFactory factory = new ManagerDaoFactory();
     Dao dao = factory.getManagerDao();
 
     @Test
     public void shouldConnectToDb() throws SQLException {
+        factory.createManagerDaoFactory(properties.getProperty("driver"), properties.getProperty("url"), "", "");
         Connection connection = factory.getConnection();
         assertNotNull(connection);
     }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   					   http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="daoFactory" class="dao.daoImplementation.ManagerDaoFactory"/>
+
+    <bean id="model" class="model.User"/>
+
+    <bean id="service" class="service.ServiceImplementation.ManagerService" autowire="constructor"/>
+
+    <bean id="connectProperty" class="utils.ConnectProperty">
+        <constructor-arg index="0" value="connect.properties"/>
+    </bean>
+
+    <bean id="view" class="view.Console"/>
+
+    <bean id="controller" class="controller.ManagerController" autowire="constructor"/>
+
+
+</beans>

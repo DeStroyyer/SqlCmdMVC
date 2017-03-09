@@ -7,4 +7,6 @@ public interface DaoFactory {
     Connection getConnection() throws SQLException;
 
     Dao getManagerDao();
+
+    void createManagerDaoFactory(String driver, String url, String user, String password);
 }

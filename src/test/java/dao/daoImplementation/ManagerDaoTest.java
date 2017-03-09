@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
 
 public class ManagerDaoTest {
 
-    ConnectProperty properties = new ConnectProperty();
+    ConnectProperty properties = new ConnectProperty("connect.properties");
     DaoFactory factory;
     Dao dao;
 
@@ -21,7 +21,7 @@ public class ManagerDaoTest {
     public void prepare() throws SQLException {
         String[] createParams = {"name", "email", "password"};
         String[] insertParams = {"1", "Rostyslav", "rostyslavpaliuha@gmail.com", "1111"};
-        factory = new ManagerDaoFactory(properties.getDriver(), properties.getUrl(), properties.getUser(), properties.getPassword());
+        factory.createManagerDaoFactory(properties.getProperty("driver"), properties.getProperty("url"), "", "");
         dao = factory.getManagerDao();
         dao.create("USER");
         dao.insert("USER", insertParams);

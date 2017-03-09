@@ -1,17 +1,15 @@
 package controller;
 
-import service.ManagerService;
-import service.Service;
-import view.Console;
-import view.View;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
-        Service service=new ManagerService();
-        View view=new Console();
-        Controller controller=new ManagerController(view,service);
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("beans.xml");
+        Controller controller=applicationContext.getBean(ManagerController.class);
         controller.watch();
+
     }
 }

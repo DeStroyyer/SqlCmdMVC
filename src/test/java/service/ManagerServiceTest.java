@@ -1,25 +1,33 @@
 package service;
 
 
+import dao.DaoFactory;
+import dao.daoImplementation.ManagerDaoFactory;
 import org.junit.Before;
 import org.junit.Test;
+import service.ServiceImplementation.ManagerService;
 import utils.ConnectProperty;
 
 import java.sql.SQLException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 
 public class ManagerServiceTest {
 
-    private ConnectProperty properties = new ConnectProperty();
-    private Service service = new ManagerService();
+    private ConnectProperty properties = new ConnectProperty("connect.properties");
+    DaoFactory factory=new ManagerDaoFactory();
+    private Service service = new ManagerService(factory);
+    private String driver = properties.getProperty("driver");
+    private String url = properties.getProperty("url");
+    private String username = "";
+    private String password = "";
     private String connect;
 
     @Before
     public void prepare() throws SQLException {
         String[] params = {"1", "Rostyslav", "rostyslavpaliuha@gmail.com", "1111"};
-        connect = service.connect(properties.getDriver(), properties.getUrl(), properties.getUser(), properties.getPassword());
+        connect = service.connect(driver, url, username, password);
         service.create("TEST");
         service.input("TEST", params);
 

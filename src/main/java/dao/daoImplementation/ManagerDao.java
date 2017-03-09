@@ -15,9 +15,12 @@ public class ManagerDao implements Dao {
         this.factory = factory;
     }
 
+    public ManagerDao() {
+    }
+
     @Override
-    public List tablesList() throws SQLException {
-        List<String> tables = new ArrayList();
+    public List<String> tablesList() throws SQLException {
+        List<String> tables = new ArrayList<String>();
         try (Connection connection = factory.getConnection()) {
             DatabaseMetaData metaData = connection.getMetaData();
             try (ResultSet rs = metaData.getTables(null, "PUBLIC", null, null)) {
@@ -59,20 +62,19 @@ public class ManagerDao implements Dao {
     @Override
     public String insert(String tableName, String... params) throws SQLException {
         String sql = "INSERT INTO " + tableName + "(id, username, email, password) values(?,?,?,?)";
-        if (params.length == 4) {
-            try (Connection connection = factory.getConnection();
-                 PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                preparedStatement.setString(1, params[0]);
-                preparedStatement.setString(2, params[1]);
-                preparedStatement.setString(3, params[2]);
-                preparedStatement.setString(4, params[3]);
-                if (3 == preparedStatement.executeUpdate()) {
-                    return "Data inserted in table: " + tableName + " successful.";
-                } else {
-                    return "Data didn`t insert in table: " + tableName;
-                }
+        if(params.length==4){
+        try (Connection connection = factory.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, params[0]);
+            preparedStatement.setString(2, params[1]);
+            preparedStatement.setString(3, params[2]);
+            preparedStatement.setString(4, params[3]);
+            if (3 == preparedStatement.executeUpdate()) {
+                return "Data inserted in table: " + tableName + " successful.";
+            } else {
+                return "Data didn`t insert in table: " + tableName;
             }
-        } else {
+        }}else{
             return "Amount of parameters not correct.";
         }
     }

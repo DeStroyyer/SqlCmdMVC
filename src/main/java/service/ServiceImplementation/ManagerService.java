@@ -1,20 +1,25 @@
-package service;
+package service.ServiceImplementation;
 
-import dao.daoImplementation.ManagerDaoFactory;
 import dao.Dao;
 import dao.DaoFactory;
 import model.User;
+import service.Service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 public class ManagerService implements Service {
     private DaoFactory factory;
     private Dao dao;
 
+    public ManagerService(DaoFactory factory) {
+        this.factory = factory;
+    }
+
     @Override
-    public String connect(String driver, String dbName, String userName, String password) throws SQLException {
-        factory = new ManagerDaoFactory(driver, dbName, userName, password);
+    public String connect(String driver, String url, String userName, String password) throws SQLException {
+        factory.createManagerDaoFactory(driver, url, userName, password);
         dao = factory.getManagerDao();
         Connection connection = factory.getConnection();
         return connection != null ? "Connection done" : "Someting wrong, try again";
@@ -26,7 +31,7 @@ public class ManagerService implements Service {
         for (Object s : dao.tablesList()) {
             result += (String) s;
         }
-        return (dao.tablesList().toString() != null | !dao.tablesList().toString().equals("")) ? result : "Data Base is empty.";
+        return (dao.tablesList().toString() != null || dao.tablesList().toString().equals("")) ? result : "Data Base is empty.";
     }
 
     @Override
@@ -59,4 +64,11 @@ public class ManagerService implements Service {
         return dao.insert(tableName, params).equals("Data inserted in table: " + tableName + " successful.") ? "Data inserted into" + tableName + " successful" : "Something wrong, try again.";
 
     }
-}
+
+    private boolean compare() {
+        for (Object existTable : tables) {
+            if (existTable.equals(tableName)) {
+                result = "Table " + tableName + " already exist.";
+            } else {
+            }
+        }

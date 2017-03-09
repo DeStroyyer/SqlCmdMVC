@@ -12,8 +12,10 @@ public class ManagerDaoFactory implements DaoFactory {
     private String user;
     private String password;
 
+    public ManagerDaoFactory() {
+    }
 
-    public ManagerDaoFactory(String driver, String url, String user, String password) {
+    public void createManagerDaoFactory(String driver, String url, String user, String password) {
         try {
             Class.forName(driver);
         } catch (ClassNotFoundException e) {
@@ -24,6 +26,7 @@ public class ManagerDaoFactory implements DaoFactory {
         this.password = password;
 
     }
+
     @Override
     public Connection getConnection() throws SQLException {
         return DriverManager.getConnection(url, user, password);
