@@ -1,9 +1,16 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title></title>
 </head>
 <body>
-<h1>Hello ${message}</h1>
+<h1>Hello ${name}</h1>
+<h1>Your pass is: ${pass}</h1>
+<p>Now avaliable commands:</p>
+<ul>
+    <li><a href="/connect">Connect</a></li>
+    <li><a href="/help">Help</a></li>
+</ul>
 </body>
 </html>

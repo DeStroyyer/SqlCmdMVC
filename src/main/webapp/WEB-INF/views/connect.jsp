@@ -5,19 +5,15 @@
 </head>
 <body>
 
-<form name="connect" method="post" action="MainController">
-    Driver:<br/>
-    <input name="driver" type="checkbox" name="H2" value="org.h2.Driver" />
-    <input name="driver" type="checkbox" name="PostGres" value="PostGres" />
-    <input name="driver" type="checkbox" name="MySql" value="MySql" />
+<form method="Post" action="connect">
 
-    Login: <br/>
-    <input name="name" type="text" size="25" maxlength="30" value=""/> <br/>
+    <label for="name">Login:</label>
+    <input id="name" name="name" type="text" size="25" maxlength="30" value=""/> <br/>
 
-    Password:<br/>
-    <input name="pass" type="password" size="25" maxlength="30" value=""/> <br/>
+    <label for="pass">Password:</label>
+    <input id="pass" name="pass" type="password" size="25" maxlength="30" value=""/> <br/>
 
-    <input type="submit" name="enter" value="connect"/>
+    <input type="submit" value="submit"/>
 </form>
 </body>
 </html>

@@ -5,11 +5,8 @@
     <title>Welcome</title>
 </head>
 <body>
-<li><a href="connect">Connect</a></li>
-<li><a href="help">Help</a></li>
-<c:forEach items="${commands}" var="item">
-    ${item}<br>
-</c:forEach>
-</ul>
+
+<a href="connect">Register</a>
+
 </body>
 </html>
