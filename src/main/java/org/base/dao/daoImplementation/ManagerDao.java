@@ -65,7 +65,7 @@ public class ManagerDao implements Dao {
         if (params.length == 4) {
             try (Connection connection = factory.getConnection();
                  PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                preparedStatement.setString(1, params[0]);
+                preparedStatement.setInt(1, Integer.parseInt(params[0]));
                 preparedStatement.setString(2, params[1]);
                 preparedStatement.setString(3, params[2]);
                 preparedStatement.setString(4, params[3]);
@@ -88,12 +88,12 @@ public class ManagerDao implements Dao {
              PreparedStatement statment = connnection.prepareStatement(sql)) {
             statment.setString(1, name);
             try (ResultSet resultSet = statment.executeQuery()) {
-
-                user.setId(resultSet.getInt("id"));
-                user.setName(resultSet.getString("username"));
-                user.setEmail(resultSet.getString("email"));
-                user.setPassword(resultSet.getString("password"));
-
+                while (resultSet.next()) {
+                    user.setId(resultSet.getInt("id"));
+                    user.setName(resultSet.getString("username"));
+                    user.setEmail(resultSet.getString("email"));
+                    user.setPassword(resultSet.getString("password"));
+                }
             }
         }
         return user;

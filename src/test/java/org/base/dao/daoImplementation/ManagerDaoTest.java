@@ -57,10 +57,11 @@ public class ManagerDaoTest {
 
     @Test
     public void shouldCreateTable() throws Exception {
+        dao.drop("USER");
         String[] params = {"name", "email", "password"};
         String actual = dao.create("TEST");
         assertEquals("Table TEST created successful.", actual);
-        dao.drop("USER");
+
     }
 
     @Test

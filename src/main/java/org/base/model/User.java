@@ -1,28 +1,20 @@
 package org.base.model;
 
-import javax.persistence.*;
 
-@Entity
-@Table(name = "users")
 public class User {
-    @Id
-    @Column(name = "ID")
-    @GeneratedValue
+
     private int id;
-    @Column(name = "Name")
     private String name;
-    @Column(name = "Email")
     private String email;
-    @Column(name = "Password")
     private String password;
+
+    public User() {
+    }
 
     public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
-    }
-
-    public User() {
     }
 
     public void setId(int id) {

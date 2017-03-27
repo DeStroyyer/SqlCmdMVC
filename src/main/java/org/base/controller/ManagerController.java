@@ -19,10 +19,12 @@ import java.util.List;
 
 @Controller
 public class ManagerController {
-    @Autowired
+
     private Service service;
-    @Autowired
-    private ConnectProperty property;
+
+    public void setService(Service service) {
+        this.service = service;
+    }
 
     @RequestMapping(value = "/")
     public String start() {
