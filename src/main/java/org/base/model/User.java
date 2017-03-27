@@ -1,11 +1,19 @@
 package org.base.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "users")
 public class User {
+    @Id
+    @Column(name = "ID")
+    @GeneratedValue
     private int id;
-
+    @Column(name = "Name")
     private String name;
-
+    @Column(name = "Email")
     private String email;
+    @Column(name = "Password")
     private String password;
 
     public User(String name, String email, String password) {

@@ -25,11 +25,7 @@ public class ManagerController {
     private ConnectProperty property;
 
     @RequestMapping(value = "/")
-    public String start(Model model) {
-        List<String> list = new ArrayList<String>();
-        list.add("connect");
-        list.add("help");
-        model.addAttribute("commands", list);
+    public String start() {
         return "index";
     }
 
@@ -39,9 +35,8 @@ public class ManagerController {
     }
 
     @RequestMapping(value = "/connect",method = RequestMethod.POST)
-    public String connectSubmit(@RequestParam String name, @RequestParam String pass, ModelMap model) throws SQLException {
-        model.addAttribute("name",name);
-        model.addAttribute("pass",pass);
+    public String connectSubmit(@RequestParam String name, @RequestParam String pass) throws SQLException {
+service.find("USER");
         return "hello";
     }
 

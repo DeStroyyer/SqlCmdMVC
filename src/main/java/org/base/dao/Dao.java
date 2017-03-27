@@ -17,4 +17,6 @@ public interface Dao {
     String drop(String tableName) throws SQLException;
 
     String insert(String tableName,String... params) throws SQLException;
+
+    User readByName(String tableName, String name) throws SQLException;
 }

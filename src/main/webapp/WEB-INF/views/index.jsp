@@ -5,8 +5,12 @@
     <title>Welcome</title>
 </head>
 <body>
+<p>Welcome to the main page!</p>
+<div>
+    <a href="connect">Login</a>
 
-<a href="connect">Register</a>
+</div>
+
 
 </body>
 </html>

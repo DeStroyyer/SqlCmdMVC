@@ -2,6 +2,7 @@ package org.base.dao.daoImplementation;
 
 import org.base.dao.Dao;
 import org.base.dao.DaoFactory;
+import org.base.model.User;
 import org.junit.*;
 import org.base.utils.ConnectProperty;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import static org.junit.Assert.*;
 
 public class ManagerDaoTest {
 
-   private ConnectProperty properties = new ConnectProperty("connect.properties");
+    private ConnectProperty properties = new ConnectProperty("connect.properties");
 
     private DaoFactory factory;
 
@@ -22,15 +23,12 @@ public class ManagerDaoTest {
 
     @Before
     public void prepare() throws SQLException {
-        String[] createParams = {"name", "email", "password"};
         String[] insertParams = {"1", "Rostyslav", "rostyslavpaliuha@gmail.com", "1111"};
-        factory=new ManagerDaoFactory();
+        factory = new ManagerDaoFactory();
         factory.createManagerDaoFactory(properties.getProperty("driver"), properties.getProperty("url"), "", "");
         dao = factory.getManagerDao();
         dao.create("USER");
         dao.insert("USER", insertParams);
-
-
     }
 
 
@@ -70,6 +68,14 @@ public class ManagerDaoTest {
         String expected = "User{id=1, name=Rostyslav, email=rostyslavpaliuha@gmail.com, password=1111}";
         List actual = dao.read("User");
         assertEquals(expected, actual.get(0).toString());
+        dao.drop("USER");
+    }
+
+    @Test
+    public void shouldReadDataAboutOneUser() throws SQLException {
+        String expected = "User{id=1, name=Rostyslav, email=rostyslavpaliuha@gmail.com, password=1111}";
+        User user = dao.readByName("USER", "Rostyslav");
+        assertEquals(expected, user.toString());
         dao.drop("USER");
     }
 

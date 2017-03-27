@@ -62,21 +62,41 @@ public class ManagerDao implements Dao {
     @Override
     public String insert(String tableName, String... params) throws SQLException {
         String sql = "INSERT INTO " + tableName + "(id, username, email, password) values(?,?,?,?)";
-        if(params.length==4){
-        try (Connection connection = factory.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, params[0]);
-            preparedStatement.setString(2, params[1]);
-            preparedStatement.setString(3, params[2]);
-            preparedStatement.setString(4, params[3]);
-            if (3 == preparedStatement.executeUpdate()) {
-                return "Data inserted in table: " + tableName + " successful.";
-            } else {
-                return "Data didn`t insert in table: " + tableName;
+        if (params.length == 4) {
+            try (Connection connection = factory.getConnection();
+                 PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setString(1, params[0]);
+                preparedStatement.setString(2, params[1]);
+                preparedStatement.setString(3, params[2]);
+                preparedStatement.setString(4, params[3]);
+                if (3 == preparedStatement.executeUpdate()) {
+                    return "Data inserted in table: " + tableName + " successful.";
+                } else {
+                    return "Data didn`t insert in table: " + tableName;
+                }
             }
-        }}else{
+        } else {
             return "Amount of parameters not correct.";
         }
+    }
+
+    @Override
+    public User readByName(String tableName, String name) throws SQLException {
+        User user = new User();
+        String sql = "Select * FROM " + tableName + " Where NAME =?";
+        try (Connection connnection = factory.getConnection();
+             PreparedStatement statment = connnection.prepareStatement(sql)) {
+            statment.setString(1, name);
+            try (ResultSet resultSet = statment.executeQuery()) {
+
+                user.setId(resultSet.getInt("id"));
+                user.setName(resultSet.getString("username"));
+                user.setEmail(resultSet.getString("email"));
+                user.setPassword(resultSet.getString("password"));
+
+            }
+        }
+        return user;
     }
 
     @Override
