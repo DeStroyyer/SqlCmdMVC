@@ -11,7 +11,7 @@
        http://www.springframework.org/schema/context/spring-context.xsd">
 
     <mvc:annotation-driven/>
-    <context:component-scan base-package="org.base.controller"/>
+
 <bean class="org.base.controller.ManagerController" autowire="byName"/>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

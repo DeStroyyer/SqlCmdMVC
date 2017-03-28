@@ -4,12 +4,9 @@
 <head>
     <title>Welcome</title>
 </head>
-<body>
+<body style="">
 <p>Welcome to the main page!</p>
-<div>
-    <a href="connect">Login</a>
-
-</div>
+<div style="float: left;margin-right: 5px"><a href="login">Login</a></div><div><a href="register">Register</a></div>
 
 
 </body>

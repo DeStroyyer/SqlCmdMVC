@@ -4,19 +4,17 @@ import org.base.dao.Dao;
 import org.base.dao.DaoFactory;
 import org.base.model.User;
 import org.base.service.Service;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 
 public class ManagerService implements Service {
     private DaoFactory factory;
-
     private Dao dao;
 
     public ManagerService() {
     }
 
-    @Autowired
     public void setFactory(DaoFactory factory) {
         this.factory = factory;
     }
@@ -74,6 +72,12 @@ public class ManagerService implements Service {
     public String input(String tableName, String... params) throws SQLException {
         return dao.insert(tableName, params).equals("Data inserted in table: " + tableName + " successful.") ? "Data inserted into" + tableName + " successful" : "Something wrong, try again.";
 
+    }
+
+    @Override
+    public User readByName(String name) throws SQLException {
+    String table="User";
+       return dao.readByName(table,name);
     }
 
     @Override

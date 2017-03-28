@@ -8,9 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>$Title$</title>
+    <title>ACCESS DENY</title>
 </head>
 <body>
-$END$
+<h1>ACCESS DENY!</h1>
 </body>
 </html>

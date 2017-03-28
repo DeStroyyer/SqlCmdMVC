@@ -11,7 +11,7 @@
 
     <bean id="model" class="org.base.model.User"/>
 
-    <bean id="service" class="org.base.service.ServiceImplementation.ManagerService"/>
+    <bean id="service" class="org.base.service.ServiceImplementation.ManagerService" autowire="byType"/>
 
     <bean id="connectProperty" class="org.base.utils.ConnectProperty">
         <constructor-arg index="0" value="connect.properties"/>

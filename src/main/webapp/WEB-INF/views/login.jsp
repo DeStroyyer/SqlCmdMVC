@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form method="Post" action="connect">
+<form method="Post" action="/login">
 
     <label for="name">Login:</label>
     <input id="name" name="name" type="text" size="25" maxlength="30" value=""/> <br/>

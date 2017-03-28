@@ -1,5 +1,7 @@
 package org.base.service;
 
+import org.base.model.User;
+
 import java.sql.SQLException;
 
 public interface Service {
@@ -16,6 +18,8 @@ public interface Service {
     String find(String tableName) throws SQLException;
 
     String input(String tableName,String...params) throws SQLException;
+
+    User readByName(String name) throws SQLException;
 
     String help();
 }

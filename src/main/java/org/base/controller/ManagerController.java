@@ -1,21 +1,11 @@
 package org.base.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.base.service.Service;
-import org.base.utils.ConnectProperty;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class ManagerController {
@@ -31,21 +21,37 @@ public class ManagerController {
         return "index";
     }
 
-    @RequestMapping(value = "/connect",method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String connectForm() throws SQLException {
-        return "connect";
+        return "login";
     }
 
-    @RequestMapping(value = "/connect",method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String connectSubmit(@RequestParam String name, @RequestParam String pass) throws SQLException {
-service.find("USER");
-        return "hello";
+        if (service.readByName(name).getName().equals(name) & service.readByName(name).getPassword().equals(pass)) {
+            return "menu";
+        } else {
+            return "accessdeny";
+        }
     }
 
-    @RequestMapping(value = "/help")
-    public String help(HttpServletRequest request) {
-        request.setAttribute("manual", service.help());
-        return "help";
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String registration() throws SQLException {
+        return "register";
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String registration(@RequestParam String name, @RequestParam String email, @RequestParam String pass) throws SQLException {
+        String table = "User";
+        if (!service.readByName(name).getName().equals(name) & !service.readByName(name).getEmail().equals(email)) {
+            String[] params = {name, email, pass};
+            service.input(table, params);
+            return "redirect:login";
+        } else {
+            return "redirect:register";
+        }
+
+
     }
 
 }
