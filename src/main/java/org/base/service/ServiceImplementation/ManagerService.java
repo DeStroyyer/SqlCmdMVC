@@ -5,6 +5,7 @@ import org.base.dao.DaoFactory;
 import org.base.model.User;
 import org.base.service.Service;
 
+import javax.annotation.PostConstruct;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -17,12 +18,19 @@ public class ManagerService implements Service {
 
     public void setFactory(DaoFactory factory) {
         this.factory = factory;
+        dao = factory.getManagerDao();
+    }
+
+    public void createtabel() throws SQLException {
+        String[] params = {"user", "user@gmail.com", "pass"};
+        create("user");
+        input("user", params);
     }
 
     @Override
     public String connect(String driver, String url, String userName, String password) {
-        factory.createManagerDaoFactory(driver, url, userName, password);
-        dao = factory.getManagerDao();
+        factory.initDaoFactory();
+
         String res = null;
         try {
             Connection connection = factory.getConnection();
@@ -36,6 +44,7 @@ public class ManagerService implements Service {
 
     @Override
     public String tables() throws SQLException {
+
         String result = "";
         for (Object s : dao.tablesList()) {
             result += (String) s;
@@ -76,8 +85,9 @@ public class ManagerService implements Service {
 
     @Override
     public User readByName(String name) throws SQLException {
-    String table="User";
-       return dao.readByName(table,name);
+
+        String table = "user";
+        return dao.readByName(table, name);
     }
 
     @Override
@@ -92,5 +102,6 @@ public class ManagerService implements Service {
                 "input-enter data about user, example: input.id.username.email.password\n" +
                 "========================================================================";
     }
+
 
 }

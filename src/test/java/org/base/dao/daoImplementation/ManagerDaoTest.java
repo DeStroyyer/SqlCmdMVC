@@ -5,7 +5,6 @@ import org.base.dao.DaoFactory;
 import org.base.model.User;
 import org.junit.*;
 import org.base.utils.ConnectProperty;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -25,7 +24,7 @@ public class ManagerDaoTest {
         String[] insertParams1 = {"Rostyslav1", "rostyslavpaliuha@gmail.com", "1111"};
         String[] insertParams2 = {"Rostyslav2", "rostyslavpaliuha@gmail.com", "1111"};
         factory = new ManagerDaoFactory();
-        factory.createManagerDaoFactory(properties.getProperty("driver"), properties.getProperty("url"), "", "");
+        factory.initDaoFactory();
         dao = factory.getManagerDao();
         dao.create("USER");
         dao.insert("USER", insertParams);

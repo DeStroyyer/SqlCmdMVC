@@ -9,8 +9,8 @@
 <h1>Your pass is: ${pass}</h1>
 <p>Now avaliable commands:</p>
 <ul>
-    <li><a href="/connect">Connect</a></li>
-    <li><a href="/help">Help</a></li>
+    <li><a href="menu/list">Show users</a></li>
+    <li><a href="menu/help">Help</a></li>
 </ul>
 </body>
 </html>

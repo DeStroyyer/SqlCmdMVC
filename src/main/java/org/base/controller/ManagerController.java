@@ -1,10 +1,14 @@
 package org.base.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.base.service.Service;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.annotation.PostConstruct;
 import java.sql.SQLException;
 
 @Controller
@@ -27,8 +31,11 @@ public class ManagerController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String connectSubmit(@RequestParam String name, @RequestParam String pass) throws SQLException {
+    public String loginSubmit(@RequestParam String name, @RequestParam String pass, Model model) throws SQLException {
+
         if (service.readByName(name).getName().equals(name) & service.readByName(name).getPassword().equals(pass)) {
+            boolean logined = true;
+            model.addAttribute(logined);
             return "menu";
         } else {
             return "accessdeny";
@@ -45,13 +52,22 @@ public class ManagerController {
         String table = "User";
         if (!service.readByName(name).getName().equals(name) & !service.readByName(name).getEmail().equals(email)) {
             String[] params = {name, email, pass};
-            service.input(table, params);
+
+
             return "redirect:login";
         } else {
             return "redirect:register";
         }
-
-
     }
+
+    @RequestMapping(value = "/menu", method = RequestMethod.GET)
+    public String showMenu(@RequestParam Boolean logined) {
+        if (logined) {
+            return "menu";
+        } else {
+            return "redirect:login";
+        }
+    }
+
 
 }

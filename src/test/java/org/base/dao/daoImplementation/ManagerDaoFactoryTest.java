@@ -17,7 +17,7 @@ public class ManagerDaoFactoryTest {
 
     @Test
     public void shouldConnectToDb() throws SQLException {
-        factory.createManagerDaoFactory(properties.getProperty("driver"), properties.getProperty("url"), "", "");
+        factory.initDaoFactory();
         Connection connection = factory.getConnection();
         assertNotNull(connection);
     }

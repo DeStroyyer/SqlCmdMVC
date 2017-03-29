@@ -8,5 +8,5 @@ public interface DaoFactory {
 
     Dao getManagerDao();
 
-    void createManagerDaoFactory(String driver, String url, String user, String password);
+    void initDaoFactory();
 }

@@ -9,14 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ManagerDao implements Dao {
+
     private DaoFactory factory;
 
-    public ManagerDao(DaoFactory factory) {
+    public void setDaoFactory(DaoFactory factory) {
         this.factory = factory;
     }
 
     public ManagerDao() {
     }
+
 
     @Override
     public List<String> tablesList() throws SQLException {

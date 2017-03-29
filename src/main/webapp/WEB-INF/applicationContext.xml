@@ -7,11 +7,13 @@
     <context:annotation-config/>
 
 
-    <bean id="daoFactory" class="org.base.dao.daoImplementation.ManagerDaoFactory"/>
+    <bean id="dao" class="org.base.dao.daoImplementation.ManagerDao" autowire="byType"/>
 
-    <bean id="model" class="org.base.model.User"/>
+    <bean id="daoFactory" class="org.base.dao.daoImplementation.ManagerDaoFactory" autowire="byType" init-method="initDaoFactory"/>
 
     <bean id="service" class="org.base.service.ServiceImplementation.ManagerService" autowire="byType"/>
+
+    <bean id="model" class="org.base.model.User"/>
 
     <bean id="connectProperty" class="org.base.utils.ConnectProperty">
         <constructor-arg index="0" value="connect.properties"/>
