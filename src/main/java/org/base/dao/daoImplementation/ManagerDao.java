@@ -3,6 +3,8 @@ package org.base.dao.daoImplementation;
 import org.base.dao.Dao;
 import org.base.dao.DaoFactory;
 import org.base.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -12,7 +14,7 @@ public class ManagerDao implements Dao {
 
     private DaoFactory factory;
 
-    public void setDaoFactory(DaoFactory factory) {
+    public void setFactory(DaoFactory factory) {
         this.factory = factory;
     }
 
@@ -35,7 +37,7 @@ public class ManagerDao implements Dao {
     }
 
     @Override
-    public String delete(String tableName) throws SQLException {
+    public String deleteTable(String tableName) throws SQLException {
         String query = "DELETE FROM " + tableName;
         try (Connection connection = factory.getConnection();
              Statement statement = connection.createStatement()) {
@@ -49,7 +51,7 @@ public class ManagerDao implements Dao {
     }
 
     @Override
-    public String drop(String tableName) throws SQLException {
+    public String dropTable(String tableName) throws SQLException {
         String sql = "DROP TABLE " + tableName;
         try (Connection connection = factory.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -62,7 +64,7 @@ public class ManagerDao implements Dao {
     }
 
     @Override
-    public String insert(String tableName, String... params) throws SQLException {
+    public String insertUser(String tableName, String... params) throws SQLException {
         String sql = "INSERT INTO " + tableName + "(username, email, password) values(?,?,?)";
         if (params.length == 3) {
             try (Connection connection = factory.getConnection();
@@ -74,7 +76,7 @@ public class ManagerDao implements Dao {
                 if (preparedStatement.executeUpdate() >= 0) {
                     return "Data inserted in table: " + tableName + " successful.";
                 } else {
-                    return "Data didn`t insert in table: " + tableName;
+                    return "Data didn`t insertUser in table: " + tableName;
                 }
             }
         } else {
@@ -83,7 +85,7 @@ public class ManagerDao implements Dao {
     }
 
     @Override
-    public String create(String tableName) throws SQLException {
+    public String createTable(String tableName) throws SQLException {
         String sql = "CREATE TABLE " + tableName + "(id int IDENTITY PRIMARY KEY,username VARCHAR(255), email VARCHAR(255), password VARCHAR(255))";
         try (Connection connection = factory.getConnection();
              Statement statement = connection.createStatement()) {
@@ -97,7 +99,7 @@ public class ManagerDao implements Dao {
     }
 
     @Override
-    public List<User> read(String tableName) throws SQLException {
+    public List<User> showUsers(String tableName) throws SQLException {
         List<User> users = new ArrayList<>();
 
         String sql = "SELECT id, username, email, password FROM " + tableName;
@@ -121,7 +123,7 @@ public class ManagerDao implements Dao {
 
 
     @Override
-    public User readByName(String tableName, String name) throws SQLException {
+    public User showUser(String tableName, String name) throws SQLException {
         User user = new User();
         String sql = "SELECT * FROM " + tableName + " WHERE username =?";
         try (Connection connnection = factory.getConnection();

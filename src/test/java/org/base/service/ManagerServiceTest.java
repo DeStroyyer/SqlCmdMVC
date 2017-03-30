@@ -2,14 +2,17 @@ package org.base.service;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.base.service.ServiceImplementation.ManagerService;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.sql.SQLException;
 
 import static org.junit.Assert.assertEquals;
 
-
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"/testContext.xml"})
 public class ManagerServiceTest {
     private Service service;
 
@@ -21,8 +24,8 @@ public class ManagerServiceTest {
     @Before
     public void prepare() throws SQLException {
         String[] params = {"1", "Rostyslav", "rostyslavpaliuha@gmail.com", "1111"};
-        service.create("TEST");
-        service.input("TEST", params);
+        service.createTable("TEST");
+        service.inputUser("TEST", params);
 
     }
 
@@ -53,7 +56,7 @@ public class ManagerServiceTest {
     @Test
     public void create() throws Exception {
         String expected = "Table TEST1 created successful.";
-        String actual = service.create("TEST1");
+        String actual = service.createTable("TEST1");
         assertEquals(expected, actual);
         service.drop("TEST");
         service.drop("TEST1");
@@ -62,7 +65,9 @@ public class ManagerServiceTest {
     @Test
     public void find() throws Exception {
         String expected = "User{id=1, name=Rostyslav, email=rostyslavpaliuha@gmail.com, password=1111}\n";
-        String actual = service.find("TEST");
+        String[] params = {"1", "Rostyslav", "rostyslavpaliuha@gmail.com", "1111"};
+        service.inputUser("TEST", params);
+        String actual = service.showUser("TEST","Rostyslav");
         assertEquals(expected, actual);
         service.drop("TEST");
     }

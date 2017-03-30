@@ -1,5 +1,6 @@
 package org.base.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,11 +15,8 @@ import java.sql.SQLException;
 @Controller
 public class ManagerController {
 
+@Autowired
     private Service service;
-
-    public void setService(Service service) {
-        this.service = service;
-    }
 
     @RequestMapping(value = "/")
     public String start() {

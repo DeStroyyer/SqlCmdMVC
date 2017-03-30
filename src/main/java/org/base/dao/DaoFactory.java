@@ -7,6 +7,4 @@ public interface DaoFactory {
     Connection getConnection() throws SQLException;
 
     Dao getManagerDao();
-
-    void initDaoFactory();
 }

@@ -12,13 +12,11 @@ public interface Service {
 
     String drop(String tableName) throws SQLException;
 
-    String create(String tableName) throws SQLException;
+    String createTable(String tableName) throws SQLException;
 
-    String find(String tableName) throws SQLException;
+    String inputUser(String tableName, String...params) throws SQLException;
 
-    String input(String tableName,String...params) throws SQLException;
-
-    User readByName(String name) throws SQLException;
+    String showUser(String tableName,String name) throws SQLException;
 
     String help();
 }

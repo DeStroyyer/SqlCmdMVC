@@ -3,6 +3,7 @@ package org.base.dao.daoImplementation;
 import org.base.dao.Dao;
 import org.base.dao.DaoFactory;
 import org.base.utils.ConnectProperty;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 import java.sql.Connection;
@@ -14,11 +15,13 @@ public class ManagerDaoFactory implements DaoFactory {
     private String url;
     private String user;
     private String password;
-    private ConnectProperty connectProperty;
 
     public void setConnectProperty(ConnectProperty connectProperty) {
         this.connectProperty = connectProperty;
     }
+
+    private ConnectProperty connectProperty;
+
 
     public ManagerDaoFactory() {
 
@@ -34,8 +37,6 @@ public class ManagerDaoFactory implements DaoFactory {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-
-
     }
 
     @Override
