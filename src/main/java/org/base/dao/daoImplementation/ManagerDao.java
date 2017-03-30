@@ -71,7 +71,7 @@ public class ManagerDao implements Dao {
                 preparedStatement.setString(2, params[1]);
                 preparedStatement.setString(3, params[2]);
 
-                if (preparedStatement.executeUpdate()>=0) {
+                if (preparedStatement.executeUpdate() >= 0) {
                     return "Data inserted in table: " + tableName + " successful.";
                 } else {
                     return "Data didn`t insert in table: " + tableName;
@@ -106,7 +106,7 @@ public class ManagerDao implements Dao {
             try (
                     ResultSet resultSet = statment.executeQuery()) {
                 while (resultSet.next()) {
-                    User user =new User();
+                    User user = new User();
                     user.setId(resultSet.getInt("id"));
                     user.setName(resultSet.getString("username"));
                     user.setEmail(resultSet.getString("email"));

@@ -1,12 +1,8 @@
 package org.base.service;
 
-
-import org.base.dao.DaoFactory;
-import org.base.dao.daoImplementation.ManagerDaoFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.base.service.ServiceImplementation.ManagerService;
-import org.base.utils.ConnectProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.SQLException;
@@ -15,37 +11,19 @@ import static org.junit.Assert.assertEquals;
 
 
 public class ManagerServiceTest {
-
-    private ConnectProperty properties = new ConnectProperty("connect.properties");
-
-
     private Service service;
+
     @Autowired
     public void setService(Service service) {
         this.service = service;
     }
-    private String driver = properties.getProperty("driver");
-    private String url = properties.getProperty("url");
-    private String username = "";
-    private String password = "";
-    private String connect;
-
 
     @Before
     public void prepare() throws SQLException {
         String[] params = {"1", "Rostyslav", "rostyslavpaliuha@gmail.com", "1111"};
-        connect = service.connect(driver, url, username, password);
         service.create("TEST");
         service.input("TEST", params);
 
-    }
-
-    @Test
-    public void shouldConnectToDB() throws Exception {
-        String actual = connect;
-        String expected = "Connection done";
-        assertEquals(expected, actual);
-        service.drop("TEST");
     }
 
     @Test

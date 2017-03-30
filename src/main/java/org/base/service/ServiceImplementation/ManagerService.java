@@ -18,6 +18,9 @@ public class ManagerService implements Service {
 
     public void setFactory(DaoFactory factory) {
         this.factory = factory;
+    }
+
+    public void init() {
         dao = factory.getManagerDao();
     }
 
@@ -26,21 +29,6 @@ public class ManagerService implements Service {
         create("user");
         input("user", params);
     }
-
-    @Override
-    public String connect(String driver, String url, String userName, String password) {
-        factory.initDaoFactory();
-
-        String res = null;
-        try {
-            Connection connection = factory.getConnection();
-            res = connection != null ? "Connection done" : "Someting wrong, try again";
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return res;
-    }
-
 
     @Override
     public String tables() throws SQLException {

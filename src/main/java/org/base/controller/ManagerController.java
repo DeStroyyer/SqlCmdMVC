@@ -26,7 +26,7 @@ public class ManagerController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String connectForm() throws SQLException {
+    public String loginForm() throws SQLException {
         return "login";
     }
 

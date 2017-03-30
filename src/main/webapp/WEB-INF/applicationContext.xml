@@ -6,12 +6,18 @@
 
     <context:annotation-config/>
 
+    <bean id="daoFactory" class="org.base.dao.daoImplementation.ManagerDaoFactory"
+          init-method="initDaoFactory">
+        <property name="connectProperty" ref="connectProperty"/>
+    </bean>
 
-    <bean id="dao" class="org.base.dao.daoImplementation.ManagerDao" autowire="byType"/>
+    <bean id="dao" class="org.base.dao.daoImplementation.ManagerDao">
+        <property name="daoFactory" ref="daoFactory"/>
+    </bean>
 
-    <bean id="daoFactory" class="org.base.dao.daoImplementation.ManagerDaoFactory" autowire="byType" init-method="initDaoFactory"/>
-
-    <bean id="service" class="org.base.service.ServiceImplementation.ManagerService" autowire="byType"/>
+    <bean id="service" class="org.base.service.ServiceImplementation.ManagerService" init-method="init">
+        <property name="factory" ref="daoFactory"/>
+    </bean>
 
     <bean id="model" class="org.base.model.User"/>
 

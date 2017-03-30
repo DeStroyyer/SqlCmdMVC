@@ -5,7 +5,6 @@ import org.base.model.User;
 import java.sql.SQLException;
 
 public interface Service {
-    String connect(String driver, String dbName, String userName, String password) throws SQLException;
 
     String tables() throws SQLException;
 

@@ -14,7 +14,6 @@ public class ManagerDaoFactory implements DaoFactory {
     private String url;
     private String user;
     private String password;
-
     private ConnectProperty connectProperty;
 
     public void setConnectProperty(ConnectProperty connectProperty) {
