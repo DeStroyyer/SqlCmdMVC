@@ -3,20 +3,22 @@ package org.base.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.base.service.Service;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.annotation.PostConstruct;
 import java.sql.SQLException;
 
 @Controller
 public class ManagerController {
 
-@Autowired
+
     private Service service;
+
+    public void setService(Service service) {
+        this.service = service;
+    }
 
     @RequestMapping(value = "/")
     public String start() {
@@ -31,7 +33,7 @@ public class ManagerController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String loginSubmit(@RequestParam String name, @RequestParam String pass, Model model) throws SQLException {
 
-        if (service.readByName(name).getName().equals(name) & service.readByName(name).getPassword().equals(pass)) {
+        if (service.getUser(name).getName().equals(name) & service.getUser(name).getPassword().equals(pass)) {
             boolean logined = true;
             model.addAttribute(logined);
             return "menu";
@@ -47,11 +49,10 @@ public class ManagerController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String registration(@RequestParam String name, @RequestParam String email, @RequestParam String pass) throws SQLException {
-        String table = "User";
-        if (!service.readByName(name).getName().equals(name) & !service.readByName(name).getEmail().equals(email)) {
+        String table = "user";
+        if (!service.getUser(name).getName().equals(name) & !service.getUser(name).getEmail().equals(email)) {
             String[] params = {name, email, pass};
-
-
+            service.inputUser(table,params);
             return "redirect:login";
         } else {
             return "redirect:register";

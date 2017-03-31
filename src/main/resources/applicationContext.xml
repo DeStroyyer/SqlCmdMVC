@@ -5,16 +5,15 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:annotation-config/>
+    <bean id="controller" class="org.base.controller.ManagerController" autowire="byType"/>
 
-    <bean id="daoFactory" class="org.base.dao.daoImplementation.ManagerDaoFactory" autowire="byType" init-method="initDaoFactory">
-
-    </bean>
+    <bean id="daoFactory" class="org.base.dao.daoImplementation.ManagerDaoFactory" autowire="byType"
+          init-method="initDaoFactory"/>
 
     <bean id="dao" class="org.base.dao.daoImplementation.ManagerDao" autowire="byType"/>
 
-
-    <bean id="service" class="org.base.service.ServiceImplementation.ManagerService" lazy-init="true" autowire="byType"/>
-
+    <bean id="service" class="org.base.service.ServiceImplementation.ManagerService"
+          autowire="byType"/>
 
     <bean id="model" class="org.base.model.User"/>
 

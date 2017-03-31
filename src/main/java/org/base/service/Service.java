@@ -16,7 +16,9 @@ public interface Service {
 
     String inputUser(String tableName, String...params) throws SQLException;
 
-    String showUser(String tableName,String name) throws SQLException;
+   String showUser(String name) throws SQLException;
+
+    User getUser(String name) throws SQLException;
 
     String help();
 }

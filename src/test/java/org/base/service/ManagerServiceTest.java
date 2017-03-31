@@ -1,5 +1,6 @@
 package org.base.service;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,52 +25,55 @@ public class ManagerServiceTest {
     @Before
     public void prepare() throws SQLException {
         String[] params = {"1", "Rostyslav", "rostyslavpaliuha@gmail.com", "1111"};
-        service.createTable("TEST");
-        service.inputUser("TEST", params);
+        service.createTable("User");
+        service.inputUser("User", params);
 
+    }
+    @After
+    public void cleartable () throws SQLException {
+        service.drop("user");
     }
 
     @Test
     public void tables() throws Exception {
-        String expected = "TEST";
+        String expected = "USER";
         String actual = service.tables();
         assertEquals(expected, actual);
-        service.drop("TEST");
 
     }
 
     @Test
     public void clear() throws Exception {
         String exepected = "Table cleared successful.";
-        String actual = service.clear("TEST");
+        String actual = service.clear("user");
         assertEquals(exepected, actual);
-        service.drop("TEST");
+
     }
 
     @Test
     public void drop() throws Exception {
         String expected = "Operation done successful.";
-        String actual = service.drop("TEST");
+        String actual = service.drop("user");
         assertEquals(expected, actual);
+
     }
 
     @Test
     public void create() throws Exception {
-        String expected = "Table TEST1 created successful.";
-        String actual = service.createTable("TEST1");
+        String expected = "Table User1 created successful.";
+        String actual = service.createTable("User1");
         assertEquals(expected, actual);
-        service.drop("TEST");
-        service.drop("TEST1");
-    }
+        service.drop("user1");
+            }
 
     @Test
     public void find() throws Exception {
         String expected = "User{id=1, name=Rostyslav, email=rostyslavpaliuha@gmail.com, password=1111}\n";
         String[] params = {"1", "Rostyslav", "rostyslavpaliuha@gmail.com", "1111"};
-        service.inputUser("TEST", params);
-        String actual = service.showUser("TEST","Rostyslav");
+        service.inputUser("User", params);
+        String actual = service.showUser("Rostyslav");
         assertEquals(expected, actual);
-        service.drop("TEST");
+
     }
 
 }

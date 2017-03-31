@@ -51,24 +51,32 @@ public class ManagerService implements Service {
     }
 
     @Override
-    public String showUser(String tableName, String name) throws SQLException {
+    public String showUser(String name) throws SQLException {
+        String tableName = "user";
         String userInfo = "";
-       User user= dao.showUser(tableName,name);
-            userInfo += user.toString() + "\n";
+        User user = dao.showUser(tableName, name);
+        userInfo += user.toString() + "\n";
 
         return (!userInfo.equals("") & userInfo != null) ? userInfo : "Table is empty.";
+    }
+
+    @Override
+    public User getUser(String name) throws SQLException {
+        String tableName = "user";
+        User user = dao.showUser(tableName, name);
+        return user;
     }
 
     @Override
     public String help() {
         return "=======================================================================\n" +
                 "Existed commands:\n" +
-                "connect-connect to db, example: connect.showUser.password\n" +
+                "connect-connect to db, example: connect.getUser.password\n" +
                 "clear-deleteTable all data from table, example: clear.tablename\n" +
                 "dropTable-remove table from db, example: dropTable.tablename\n" +
                 "createTable-createTable table with specific name, example: createTable.tablename\n" +
                 "find-show content from table, example: find.tablename\n" +
-                "inputUser-enter data about showUser, example: inputUser.id.username.email.password\n" +
+                "inputUser-enter data about getUser, example: inputUser.id.username.email.password\n" +
                 "========================================================================";
     }
 

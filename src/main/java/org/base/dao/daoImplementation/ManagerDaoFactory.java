@@ -22,7 +22,6 @@ public class ManagerDaoFactory implements DaoFactory {
 
     private ConnectProperty connectProperty;
 
-
     public ManagerDaoFactory() {
 
     }

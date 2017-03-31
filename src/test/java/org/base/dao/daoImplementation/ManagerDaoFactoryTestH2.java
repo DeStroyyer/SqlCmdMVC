@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/testContext.xml"})
-public class ManagerDaoFactoryTest {
+public class ManagerDaoFactoryTestH2 {
 
     private Dao dao;
 
