@@ -16,12 +16,11 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/testContext.xml"})
-public class ManagerDaoFactoryTestH2 {
-
-    private Dao dao;
+public class ConnectionTestH2 {
 
     private DaoFactory daoFactory;
-@Autowired
+
+    @Autowired
     public void setDaoFactory(DaoFactory daoFactory) {
         this.daoFactory = daoFactory;
     }
@@ -33,9 +32,5 @@ public class ManagerDaoFactoryTestH2 {
         assertNotNull(connection);
     }
 
-    @Test
-    public void shouldReturnDaoTest() {
-        assertNotNull(dao=daoFactory.getManagerDao());
-    }
 
 }

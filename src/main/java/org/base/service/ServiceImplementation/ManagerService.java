@@ -1,22 +1,32 @@
 package org.base.service.ServiceImplementation;
 
+import jdk.nashorn.internal.runtime.regexp.JoniRegExp;
 import org.base.dao.Dao;
+import org.base.dao.DaoFactory;
 import org.base.model.User;
 import org.base.service.Service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class ManagerService implements Service {
 
 
     private Dao dao;
 
+    private DaoFactory daoFactory;
+
     public void setDao(Dao dao) {
         this.dao = dao;
     }
 
+    public void setDaoFactory(DaoFactory daoFactory) {
+        this.daoFactory = daoFactory;
+
+    }
 
     public ManagerService() {
+
     }
 
     @Override
@@ -62,9 +72,16 @@ public class ManagerService implements Service {
 
     @Override
     public User getUser(String name) throws SQLException {
-        String tableName = "user";
+        String tableName = "login";
         User user = dao.showUser(tableName, name);
         return user;
+    }
+
+    @Override
+    public List showUsers(String tableName) throws SQLException {
+        List <User> users=dao.showUsers(tableName);
+        return users;
+
     }
 
     @Override

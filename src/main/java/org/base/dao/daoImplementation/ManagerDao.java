@@ -24,15 +24,16 @@ public class ManagerDao implements Dao {
 
     @Override
     public List<String> tablesList() throws SQLException {
+        String sql="SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE'";
         List<String> tables = new ArrayList<String>();
-        try (Connection connection = factory.getConnection()) {
-            DatabaseMetaData metaData = connection.getMetaData();
-            try (ResultSet rs = metaData.getTables(null, "PUBLIC", null, null)) {
-                while (rs.next()) {
-                    tables.add(rs.getString(3));
+        try (Connection connection = factory.getConnection();
+             PreparedStatement statement= connection.prepareStatement(sql);
+             ResultSet resultSet =statement.executeQuery() ){
+            while(resultSet.next()){
+                    tables.add(resultSet.getString("table_name"));
                 }
             }
-        }
+
         return tables;
     }
 
@@ -43,7 +44,7 @@ public class ManagerDao implements Dao {
              Statement statement = connection.createStatement()) {
             int deletedRows = statement.executeUpdate(query);
             if (deletedRows > 0) {
-                return "All Rows In The Table" + tableName + " Successfully deleted";
+                return "All Rows In The Table " + tableName + " Successfully deleted";
             } else {
                 return "Table" + tableName + " already empty.";
             }
@@ -65,13 +66,14 @@ public class ManagerDao implements Dao {
 
     @Override
     public String insertUser(String tableName, String... params) throws SQLException {
-        String sql = "INSERT INTO " + tableName + "(name, email, password) values(?,?,?)";
-        if (params.length == 3) {
+        String sql = "INSERT INTO " + tableName + "(id, name, email, password) values(?,?,?,?)";
+        if (params.length == 4) {
             try (Connection connection = factory.getConnection();
                  PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                preparedStatement.setString(1, params[0]);
+                preparedStatement.setInt(1, Integer.parseInt(params[0]));
                 preparedStatement.setString(2, params[1]);
                 preparedStatement.setString(3, params[2]);
+                preparedStatement.setString(4, params[3]);
 
                 if (preparedStatement.executeUpdate() >= 0) {
                     return "Data inserted in table: " + tableName + " successful.";
@@ -86,7 +88,7 @@ public class ManagerDao implements Dao {
 
     @Override
     public String createTable(String tableName) throws SQLException {
-        String sql = "CREATE TABLE " + tableName + "(id int IDENTITY PRIMARY KEY, name VARCHAR(255), email VARCHAR(255), password VARCHAR(255))";
+        String sql = "CREATE TABLE " + tableName + "(id INTEGER , name VARCHAR(255), email VARCHAR(255), password VARCHAR(255),PRIMARY KEY (id))";
         try (Connection connection = factory.getConnection();
              Statement statement = connection.createStatement()) {
             if (0 >= statement.executeUpdate(sql)) {
@@ -103,8 +105,8 @@ public class ManagerDao implements Dao {
         List<User> users = new ArrayList<>();
 
         String sql = "SELECT id, name, email, password FROM " + tableName;
-        try (Connection connnection = factory.getConnection();
-             PreparedStatement statment = connnection.prepareStatement(sql)) {
+        try (Connection connection = factory.getConnection();
+             PreparedStatement statment = connection.prepareStatement(sql)) {
             try (
                     ResultSet resultSet = statment.executeQuery()) {
                 while (resultSet.next()) {
@@ -130,7 +132,7 @@ public class ManagerDao implements Dao {
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, name);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                while (resultSet.next()) {
+                if (resultSet.next()) {
                     user.setId(resultSet.getInt("id"));
                     user.setName(resultSet.getString("name"));
                     user.setEmail(resultSet.getString("email"));

@@ -15,7 +15,7 @@ public class Main {
         System.out.println(factory);
         Connection connection = factory.getConnection();
         System.out.println(connection);
-        Dao managerDao = factory.getManagerDao();
+        Dao managerDao = (Dao)context.getBean("dao");
         System.out.println(managerDao);
     }
 }

@@ -14,9 +14,14 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/applicationContext.xml"})
-public class ManagerDaoFactoryTestPostgre {
+public class ConnectionTestPostgre {
+    Dao dao;
 
     DaoFactory factory;
+    @Autowired
+    public void setDao(Dao dao) {
+        this.dao = dao;
+    }
 
     @Autowired
     public void setFactory(DaoFactory factory) {
@@ -31,7 +36,7 @@ public class ManagerDaoFactoryTestPostgre {
 
     @Test
     public void getManagerDao() throws Exception {
-        Dao dao=factory.getManagerDao();
+
         assertNotNull(dao);
     }
 

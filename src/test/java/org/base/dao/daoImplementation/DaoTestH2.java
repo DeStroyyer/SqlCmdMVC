@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/testContext.xml"})
-public class ManagerDaoTest {
+public class DaoTestH2 {
 
     private Dao dao;
 
@@ -27,9 +27,9 @@ public class ManagerDaoTest {
 
     @Before
     public void prepare() throws SQLException {
-        String[] insertParams = {"Rostyslav", "rostyslavpaliuha@gmail.com", "1111"};
-        String[] insertParams1 = {"Rostyslav1", "rostyslavpaliuha@gmail.com", "1111"};
-        String[] insertParams2 = {"Rostyslav2", "rostyslavpaliuha@gmail.com", "1111"};
+        String[] insertParams = {"1", "Rostyslav", "rostyslavpaliuha@gmail.com", "1111"};
+        String[] insertParams1 = {"2", "Rostyslav1", "rostyslavpaliuha@gmail.com", "1111"};
+        String[] insertParams2 = {"3", "Rostyslav2", "rostyslavpaliuha@gmail.com", "1111"};
         dao.createTable("USER");
         dao.insertUser("USER", insertParams);
         dao.insertUser("USER", insertParams1);

@@ -10,19 +10,19 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class ManagerDaoFactory implements DaoFactory {
+public class ConnectFactory implements DaoFactory {
     private String driver;
     private String url;
     private String user;
     private String password;
 
+    private ConnectProperty connectProperty;
+
     public void setConnectProperty(ConnectProperty connectProperty) {
         this.connectProperty = connectProperty;
     }
 
-    private ConnectProperty connectProperty;
-
-    public ManagerDaoFactory() {
+    public ConnectFactory() {
 
     }
 
@@ -44,8 +44,5 @@ public class ManagerDaoFactory implements DaoFactory {
 
     }
 
-    @Override
-    public Dao getManagerDao() {
-        return new ManagerDao();
-    }
 }
+

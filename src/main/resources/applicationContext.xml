@@ -7,7 +7,7 @@
     <context:annotation-config/>
     <bean id="controller" class="org.base.controller.ManagerController" autowire="byType"/>
 
-    <bean id="daoFactory" class="org.base.dao.daoImplementation.ManagerDaoFactory" autowire="byType"
+    <bean id="daoFactory" class="org.base.dao.daoImplementation.ConnectFactory" autowire="byType"
           init-method="initDaoFactory"/>
 
     <bean id="dao" class="org.base.dao.daoImplementation.ManagerDao" autowire="byType"/>

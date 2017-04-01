@@ -53,7 +53,8 @@ public class ManagerServiceTest {
     @Test
     public void drop() throws Exception {
         String expected = "Operation done successful.";
-        String actual = service.drop("user");
+        service.createTable("TEST");
+        String actual = service.drop("TEST");
         assertEquals(expected, actual);
 
     }
@@ -69,8 +70,6 @@ public class ManagerServiceTest {
     @Test
     public void find() throws Exception {
         String expected = "User{id=1, name=Rostyslav, email=rostyslavpaliuha@gmail.com, password=1111}\n";
-        String[] params = {"1", "Rostyslav", "rostyslavpaliuha@gmail.com", "1111"};
-        service.inputUser("User", params);
         String actual = service.showUser("Rostyslav");
         assertEquals(expected, actual);
 

@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.SQLException;
+import java.util.List;
 
 @Controller
 public class ManagerController {
 
 
     private Service service;
+    private boolean logined = false;
 
     public void setService(Service service) {
         this.service = service;
@@ -34,10 +36,14 @@ public class ManagerController {
     public String loginSubmit(@RequestParam String name, @RequestParam String pass, Model model) throws SQLException {
 
         if (service.getUser(name).getName().equals(name) & service.getUser(name).getPassword().equals(pass)) {
-            boolean logined = true;
+            logined=true;
             model.addAttribute(logined);
+            model.addAttribute("name",name);
+            model.addAttribute("pass",pass);
             return "menu";
         } else {
+
+
             return "accessdeny";
         }
     }
@@ -60,13 +66,23 @@ public class ManagerController {
     }
 
     @RequestMapping(value = "/menu", method = RequestMethod.GET)
-    public String showMenu(@RequestParam Boolean logined) {
+    public String showMenu() {
         if (logined) {
             return "menu";
         } else {
-            return "redirect:login";
+            return "login";
         }
     }
+@RequestMapping(value="/menu/list",method = RequestMethod.GET)
+    public String listOfUsers(Model model) throws SQLException {
+    if(logined){
+    List list=service.showUsers("users");
+    model.addAttribute("list",list);
+    return "list";
+    }else{
+        return "redirect:login";
+    }
 
+}
 
 }
