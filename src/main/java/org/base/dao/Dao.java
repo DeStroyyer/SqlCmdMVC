@@ -19,4 +19,13 @@ public interface Dao {
     List<User> showUsers(String tableName) throws SQLException;
 
     User showUser(String tableName, String name) throws SQLException;
+
+    String editUserName(String oldName,String newName) throws SQLException;
+
+    String editUserEmail(String previousEmail,String newEmail) throws SQLException;
+
+    String editUserPassword(String previousPassword,String newPassword) throws SQLException;
+
+    String editUser(String... params) throws SQLException;
+
 }

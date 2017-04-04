@@ -15,13 +15,19 @@ public interface Service {
 
     String createTable(String tableName) throws SQLException;
 
-    String inputUser(String tableName, String... params) throws SQLException;
+    String insertUser(String tableName, String... params) throws SQLException;
 
     String showUser(String name) throws SQLException;
 
     User getUser(String name) throws SQLException;
 
     List showUsers(String tableName) throws SQLException;
+
+    String editUser(String... params) throws SQLException;
+
+    boolean isLogined();
+
+    void setLogined(boolean logined);
 
     String help();
 }

@@ -26,7 +26,7 @@ public class ManagerServiceTest {
     public void prepare() throws SQLException {
         String[] params = {"1", "Rostyslav", "rostyslavpaliuha@gmail.com", "1111"};
         service.createTable("User");
-        service.inputUser("User", params);
+        service.insertUser("User", params);
 
     }
     @After

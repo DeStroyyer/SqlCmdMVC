@@ -27,9 +27,9 @@ public class DaoTestH2 {
 
     @Before
     public void prepare() throws SQLException {
-        String[] insertParams = {"1", "Rostyslav", "rostyslavpaliuha@gmail.com", "1111"};
-        String[] insertParams1 = {"2", "Rostyslav1", "rostyslavpaliuha@gmail.com", "1111"};
-        String[] insertParams2 = {"3", "Rostyslav2", "rostyslavpaliuha@gmail.com", "1111"};
+        String[] insertParams = {"Rostyslav", "rostyslavpaliuha@gmail.com", "1111"};
+        String[] insertParams1 = {"Rostyslav1", "rostyslavpaliuha@gmail.com", "1111"};
+        String[] insertParams2 = {"Rostyslav2", "rostyslavpaliuha@gmail.com", "1111"};
         dao.createTable("USER");
         dao.insertUser("USER", insertParams);
         dao.insertUser("USER", insertParams1);
@@ -98,7 +98,6 @@ public class DaoTestH2 {
         assertEquals(actual.getName(), "Rostyslav");
         assertEquals(actual.getEmail(), "rostyslavpaliuha@gmail.com");
         assertEquals(actual.getPassword(), "1111");
-
         assertEquals(expected, actual.toString());
 
     }

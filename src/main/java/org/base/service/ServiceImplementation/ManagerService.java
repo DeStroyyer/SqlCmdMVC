@@ -14,16 +14,21 @@ public class ManagerService implements Service {
 
     private Dao dao;
 
-    private DaoFactory daoFactory;
+    private boolean logined = false;
+
+    public boolean isLogined() {
+        return logined;
+    }
+
+    public void setLogined(boolean logined) {
+        this.logined = logined;
+    }
+
 
     public void setDao(Dao dao) {
         this.dao = dao;
     }
 
-    public void setDaoFactory(DaoFactory daoFactory) {
-        this.daoFactory = daoFactory;
-
-    }
 
     public ManagerService() {
 
@@ -44,7 +49,7 @@ public class ManagerService implements Service {
     }
 
     @Override
-    public String inputUser(String tableName, String... params) throws SQLException {
+    public String insertUser(String tableName, String... params) throws SQLException {
         return dao.insertUser(tableName, params).equals("Data inserted in table: " + tableName + " successful.") ? "Data inserted into" + tableName + " successful" : "Something wrong, try again.";
 
     }
@@ -79,9 +84,14 @@ public class ManagerService implements Service {
 
     @Override
     public List showUsers(String tableName) throws SQLException {
-        List <User> users=dao.showUsers(tableName);
+        List<User> users = dao.showUsers(tableName);
         return users;
 
+    }
+
+    @Override
+    public String editUser(String... params) throws SQLException {
+        return dao.editUser(params).equals("User : " + params[0] + " data edited successful") ? "Changes made successfully" : "Changes made unsuccessfully";
     }
 
     @Override
@@ -93,7 +103,7 @@ public class ManagerService implements Service {
                 "dropTable-remove table from db, example: dropTable.tablename\n" +
                 "createTable-createTable table with specific name, example: createTable.tablename\n" +
                 "find-show content from table, example: find.tablename\n" +
-                "inputUser-enter data about getUser, example: inputUser.id.username.email.password\n" +
+                "insertUser-enter data about getUser, example: insertUser.id.username.email.password\n" +
                 "========================================================================";
     }
 

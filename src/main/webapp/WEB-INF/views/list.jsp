@@ -13,6 +13,7 @@
         <th>Name</th>
         <th>Email</th>
         <th>Password</th>
+        <th colspan="2">Functions</th>
     </tr>
     <c:forEach var="user" items="${list}">
     <tr>
@@ -20,8 +21,10 @@
         <td><c:out value="${user.getName()}"/></td>
         <td><c:out value="${user.getEmail()}"/></td>
         <td><c:out value="${user.getPassword()}"/></td>
+        <td><a href="/menu/list/edit/${user.getId()}/${user.getName()}">Edit</a></td>
+        <td><a href="'/menu/list/delete/'+{user.getId()}">Delete</a></td>
     </tr>
     </c:forEach>
-
+    </table>
 </body>
 </html>

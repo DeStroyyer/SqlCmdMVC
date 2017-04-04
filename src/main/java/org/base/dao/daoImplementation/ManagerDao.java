@@ -24,15 +24,15 @@ public class ManagerDao implements Dao {
 
     @Override
     public List<String> tablesList() throws SQLException {
-        String sql="SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE'";
+        String sql = "SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE'";
         List<String> tables = new ArrayList<String>();
         try (Connection connection = factory.getConnection();
-             PreparedStatement statement= connection.prepareStatement(sql);
-             ResultSet resultSet =statement.executeQuery() ){
-            while(resultSet.next()){
-                    tables.add(resultSet.getString("table_name"));
-                }
+             PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                tables.add(resultSet.getString("table_name"));
             }
+        }
 
         return tables;
     }
@@ -66,14 +66,13 @@ public class ManagerDao implements Dao {
 
     @Override
     public String insertUser(String tableName, String... params) throws SQLException {
-        String sql = "INSERT INTO " + tableName + "(id, name, email, password) values(?,?,?,?)";
-        if (params.length == 4) {
+        String sql = "INSERT INTO " + tableName + "(name, email, password) values(?,?,?)";
+        if (params.length == 3) {
             try (Connection connection = factory.getConnection();
                  PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                preparedStatement.setInt(1, Integer.parseInt(params[0]));
+                preparedStatement.setString(1, params[0]);
                 preparedStatement.setString(2, params[1]);
                 preparedStatement.setString(3, params[2]);
-                preparedStatement.setString(4, params[3]);
 
                 if (preparedStatement.executeUpdate() >= 0) {
                     return "Data inserted in table: " + tableName + " successful.";
@@ -88,7 +87,7 @@ public class ManagerDao implements Dao {
 
     @Override
     public String createTable(String tableName) throws SQLException {
-        String sql = "CREATE TABLE " + tableName + "(id INTEGER , name VARCHAR(255), email VARCHAR(255), password VARCHAR(255),PRIMARY KEY (id))";
+        String sql = "CREATE TABLE " + tableName + "(id Serial , name VARCHAR(255), email VARCHAR(255), password VARCHAR(255),PRIMARY KEY (id))";
         try (Connection connection = factory.getConnection();
              Statement statement = connection.createStatement()) {
             if (0 >= statement.executeUpdate(sql)) {
@@ -141,6 +140,68 @@ public class ManagerDao implements Dao {
             }
         }
         return user;
+    }
+
+    @Override
+    public String editUserName(String oldName, String newName) throws SQLException {
+        String sql = "UPDATE users SET name = ? WHERE name=?";
+        try (Connection connection = factory.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, newName);
+            preparedStatement.setString(2, oldName);
+            if (preparedStatement.executeUpdate() > 0) {
+                return "Name: " + oldName + " edited to new name " + newName + " successful";
+            } else {
+                return "Edit name was unsuccesful";
+            }
+        }
+    }
+
+    @Override
+    public String editUserEmail(String previousEmail, String newEmail) throws SQLException {
+        String sql = "UPDATE users SET email = ? WHERE email=?";
+        try (Connection connection = factory.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, newEmail);
+            preparedStatement.setString(2, previousEmail);
+            if (preparedStatement.executeUpdate() > 0) {
+                return "Email: " + previousEmail + " edited to new email " + newEmail + " successful";
+            } else {
+                return "Edit email was unsuccessful";
+            }
+        }
+    }
+
+    @Override
+    public String editUserPassword(String previousPassword, String password) throws SQLException {
+        String sql = "UPDATE users SET email = ? WHERE email=?";
+        try (Connection connection = factory.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, password);
+            preparedStatement.setString(2, previousPassword);
+            if (preparedStatement.executeUpdate() > 0) {
+                return "Password: " + previousPassword + " edited to new password " + password + " successful";
+            } else {
+                return "Edit password was unsuccessful";
+            }
+        }
+    }
+
+    @Override
+    public String editUser(String... params) throws SQLException {
+        String sql = "UPDATE users SET name=?,email = ?,password=? WHERE id=?";
+        try (Connection connection = factory.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, params[0]);
+            preparedStatement.setString(2, params[1]);
+            preparedStatement.setString(3, params[2]);
+            preparedStatement.setInt(4, Integer.parseInt(params[3]));
+            if (preparedStatement.executeUpdate() > 0) {
+                return "User : " + params[0] + " data edited successful";
+            } else {
+                return "Edit user :" + params[0] + "was unsuccessful";
+            }
+        }
     }
 }
 

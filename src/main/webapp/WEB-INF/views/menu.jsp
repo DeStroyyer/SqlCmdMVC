@@ -10,6 +10,7 @@
 <p>Now avaliable commands:</p>
 <ul>
     <li><a href="menu/list">Show users</a></li>
+    <li><a href="menu/adduser">Add user</a> </li>
     <li><a href="menu/help">Help</a></li>
 </ul>
 </body>

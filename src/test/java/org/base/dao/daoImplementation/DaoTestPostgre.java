@@ -31,35 +31,31 @@ public class DaoTestPostgre {
     public void tablesList() throws Exception {
 
         List actual = dao.tablesList();
-
-        assertEquals("user", actual.get(0));
+        assertEquals("[showuserstest, user, login, users, test, inserttest, delete]", actual.toString());
     }
 
     @Test
     public void deleteTable() throws Exception {
         String expected = "All Rows In The Table delete Successfully deleted";
-        String[] insertParams = {"1", "Rostyslav", "rostyslavpaliuha@gmail.com", "1111"};
+        String[] insertParams = {"Rostyslav", "rostyslavpaliuha@gmail.com", "1111"};
         dao.insertUser("delete", insertParams);
         String actual = dao.deleteTable("delete");
         assertEquals(expected, actual);
-
-
     }
 
     @Test
     public void dropTable() throws Exception {
-        String expected = "Table drop was droped.";
+       String expected = "Table drop was droped.";
         dao.createTable("drop");
         String actual = dao.dropTable("drop");
         assertEquals(expected, actual);
-
     }
 
     @Test
     public void insertUser() throws Exception {
         dao.deleteTable("inserttest");
         String expected = "Data inserted in table: inserttest successful.";
-        String[] insertParams = {"1", "Rostyslav", "rostyslavpaliuha@gmail.com", "1111"};
+        String[] insertParams = {"Rostyslav", "rostyslavpaliuha@gmail.com", "1111"};
         String actual = dao.insertUser("inserttest", insertParams);
         assertEquals(expected, actual);
 
@@ -71,7 +67,6 @@ public class DaoTestPostgre {
         String expected = "Table createtest created successful.";
         String actual = dao.createTable("createtest");
         assertEquals(expected, actual);
-
     }
 
     @Test
