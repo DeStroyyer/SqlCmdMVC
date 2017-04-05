@@ -199,5 +199,18 @@ public class ManagerDao implements Dao {
             }
         }
     }
+
+    @Override
+    public String deleteUser(String... params) throws SQLException {
+        String sql = "Delete From " + params[0] + " Where id=?";
+        try (Connection connection = factory.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, Integer.parseInt(params[1]));
+            if (preparedStatement.executeUpdate() > 0) {
+                return "Action complete.";
+            }
+        }
+        return "Action uncomplete.";
+    }
 }
 

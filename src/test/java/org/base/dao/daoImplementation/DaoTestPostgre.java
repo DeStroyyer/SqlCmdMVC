@@ -45,7 +45,7 @@ public class DaoTestPostgre {
 
     @Test
     public void dropTable() throws Exception {
-       String expected = "Table drop was droped.";
+        String expected = "Table drop was droped.";
         dao.createTable("drop");
         String actual = dao.dropTable("drop");
         assertEquals(expected, actual);
@@ -84,7 +84,27 @@ public class DaoTestPostgre {
         User user = dao.showUser("showuserstest", "Rostyslav");
         assertNotNull(user);
         assertEquals(expected, user.toString());
+    }
 
+    @Test
+    public void editUserInfo() throws Exception {
+        String params[] = {"Rostyslav", "rostyslavpaliuha@gmail.com", "1111"};
+        String editparams[] = {"Rostyslav1", "rostyslavpaliuha@gmail.com", "1111", "1"};
+        String expected = "User : " + editparams[0] + " data edited successful";
+        dao.deleteTable("editusertest");
+        dao.insertUser("editusertest", "params");
+        String actual = dao.editUser(editparams);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void deleteUser() throws Exception {
+        String expected = "Action complete.";
+        String params[] = {"Rostyslav", "rostyslavpaliuha@gmail.com", "1111"};
+        String deleteparams[] = {"deleteusertest", "14"};
+        dao.insertUser("deleteusertest", params);
+        String actual = dao.deleteUser(deleteparams);
+        assertEquals(expected, actual);
     }
 
 }

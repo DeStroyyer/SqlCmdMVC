@@ -28,4 +28,6 @@ public interface Dao {
 
     String editUser(String... params) throws SQLException;
 
+    String deleteUser(String ...params) throws SQLException;
+
 }
