@@ -1,36 +1,31 @@
 package org.base.dao.daoImplementation;
 
-import org.base.dao.Dao;
 import org.base.dao.DaoFactory;
-import org.base.utils.ConnectProperty;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.annotation.PostConstruct;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectFactory implements DaoFactory {
+
     private String driver;
     private String url;
     private String user;
     private String password;
 
-    private ConnectProperty connectProperty;
-
-    public void setConnectProperty(ConnectProperty connectProperty) {
-        this.connectProperty = connectProperty;
+    public ConnectFactory(String driver, String url, String user, String password) {
+        this.driver = driver;
+        this.url = url;
+        this.user = user;
+        this.password = password;
     }
 
     public ConnectFactory() {
 
     }
 
-    public void initDaoFactory() {
-        this.driver = connectProperty.getProperty("driver");
-        this.url = connectProperty.getProperty("url");
-        this.user = connectProperty.getProperty("user");
-        this.password = connectProperty.getProperty("password");
+    public void init() {
         try {
             Class.forName(driver);
         } catch (ClassNotFoundException e) {

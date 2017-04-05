@@ -14,6 +14,10 @@ public class ManagerService implements Service {
 
     private Dao dao;
 
+    public ManagerService(Dao dao) {
+        this.dao = dao;
+    }
+
     private boolean logined = false;
 
     public boolean isLogined() {
@@ -22,16 +26,6 @@ public class ManagerService implements Service {
 
     public void setLogined(boolean logined) {
         this.logined = logined;
-    }
-
-
-    public void setDao(Dao dao) {
-        this.dao = dao;
-    }
-
-
-    public ManagerService() {
-
     }
 
     @Override

@@ -21,8 +21,8 @@
         <td><c:out value="${user.getName()}"/></td>
         <td><c:out value="${user.getEmail()}"/></td>
         <td><c:out value="${user.getPassword()}"/></td>
-        <td><a href="/menu/list/edit/${user.getId()}/${user.getName()}">Edit</a></td>
-        <td><a href="'/menu/list/delete/'+{user.getId()}">Delete</a></td>
+        <td><a href="/edit/${user.getId()}/${user.getName()}">Edit</a></td>
+        <td><a href="/menu/list/delete/${user.getId()}/${user.getName()}">Delete</a></td>
     </tr>
     </c:forEach>
     </table>

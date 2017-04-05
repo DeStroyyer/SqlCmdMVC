@@ -1,7 +1,9 @@
 package org.base.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.MatrixVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.base.service.Service;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,17 +34,6 @@ public class MainController {
         return "login";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String loginSubmit(@RequestParam String name, @RequestParam String pass, ModelMap model) throws SQLException {
-        if (service.getUser(name).getName().equals(name) & service.getUser(name).getPassword().equals(pass)) {
-            service.setLogined(true);
-            model.addAttribute("name", name);
-            model.addAttribute("pass", pass);
-            return "menu";
-        } else {
-            return "accessdeny";
-        }
-    }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String registration() throws SQLException {

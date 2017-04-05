@@ -21,12 +21,23 @@ public class MenuController {
     }
 
     @RequestMapping(value = "/menu", method = RequestMethod.GET)
-    public String showMenu(ModelMap model) {
+    public String showMenu() {
 
         if (service.isLogined()) {
             return "menu";
         } else {
-            return "redirect:login";
+            return "login";
+        }
+    }
+
+    @RequestMapping(value = "/menu", method = RequestMethod.POST)
+    public String loginSubmit(@RequestParam String name, @RequestParam String pass, Model model) throws SQLException {
+        if (service.getUser(name).getName().equals(name) & service.getUser(name).getPassword().equals(pass)) {
+            service.setLogined(true);
+            model.addAttribute("name", name);
+            return "menu";
+        } else {
+            return "accessdeny";
         }
     }
 
@@ -37,12 +48,12 @@ public class MenuController {
             model.addAttribute("list", list);
             return "list";
         } else {
-            return "redirect:login";
+            return "login";
         }
     }
 
     @RequestMapping(value = "/menu/adduser", method = RequestMethod.GET)
-    public String addUser(Model model) {
+    public String addUser() {
         return "addform";
     }
 
@@ -51,20 +62,20 @@ public class MenuController {
         if (service.isLogined()) {
             String[] params = {name, email, password};
             service.insertUser("users", params);
-            return "menu";
+            return "redirect:/menu";
         } else {
-            return "redirect:login";
+            return "login";
         }
     }
 
-    @RequestMapping(value = "menu/list/edit/{id}/{name}", method = RequestMethod.GET)
-    public String edit(@PathVariable String id, @PathVariable String name, Model model) {
+    @RequestMapping(value = "/edit/{id}/{name}", method = RequestMethod.GET)
+    public String editform(@PathVariable String id, @PathVariable String name, Model model) {
         if (service.isLogined()) {
             model.addAttribute("id", id);
             model.addAttribute("name", name);
             return "editform";
         } else {
-            return "redirect:login";
+            return "login";
         }
     }
 
@@ -74,9 +85,9 @@ public class MenuController {
             String[] params = {name, email, password, id};
             service.editUser(params);
 
-            return "redirect:menu/list";
+            return "menu/list";
         } else {
-            return "redirect:login";
+            return "login";
         }
     }
 }

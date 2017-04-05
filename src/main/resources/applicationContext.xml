@@ -6,18 +6,26 @@
 
     <context:annotation-config/>
 
-    <bean id="daoFactory" class="org.base.dao.daoImplementation.ConnectFactory" autowire="byType"
-          init-method="initDaoFactory"/>
+    <bean id="connectFactory" class="org.base.dao.daoImplementation.ConnectFactory" init-method="init">
+        <constructor-arg name="driver" value="${driver}"/>
+        <constructor-arg name="url" value="${url}"/>
+        <constructor-arg name="user" value="${user}"/>
+        <constructor-arg name="password" value="${password}"/>
+    </bean>
 
-    <bean id="dao" class="org.base.dao.daoImplementation.ManagerDao" autowire="byType"/>
+    <bean id="dao" class="org.base.dao.daoImplementation.ManagerDao">
+        <constructor-arg name="factory" ref="connectFactory"/>
+    </bean>
 
-    <bean id="service" class="org.base.service.ServiceImplementation.ManagerService"
-          autowire="byType"/>
+    <bean id="service" class="org.base.service.ServiceImplementation.ManagerService">
+        <constructor-arg name="dao" ref="dao"/>
+    </bean>
 
     <bean id="model" class="org.base.model.User"/>
 
-    <bean id="connectProperty" class="org.base.utils.ConnectProperty">
-        <constructor-arg index="0" value="postgre.properties"/>
+    <bean id="dbProperties"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:postgre.properties"/>
     </bean>
 
 

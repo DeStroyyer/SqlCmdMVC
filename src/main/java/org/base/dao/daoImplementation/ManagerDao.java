@@ -14,13 +14,9 @@ public class ManagerDao implements Dao {
 
     private DaoFactory factory;
 
-    public void setFactory(DaoFactory factory) {
+    public ManagerDao(DaoFactory factory) {
         this.factory = factory;
     }
-
-    public ManagerDao() {
-    }
-
 
     @Override
     public List<String> tablesList() throws SQLException {

@@ -1,0 +1,8 @@
+p{
+    float: left;
+}
+div {
+    display: inline-flex;
+    float: left;
+    margin-right: 5px;
+}

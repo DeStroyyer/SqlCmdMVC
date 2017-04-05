@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Hello ${name}</h1>
-<h1>Your pass is: ${pass}</h1>
+
 <p>Now avaliable commands:</p>
 <ul>
     <li><a href="menu/list">Show users</a></li>
