@@ -8,9 +8,19 @@
 <body>
 
 <div id="container">
-    <div id="header">Forum
-        <div id="auth"><a href="login">Login</a><a href="register">Register</a></div>
+
+    <div id="header">
+
+        <p class="header">Forum</p>
+
+        <div class="auth">
+            <a class="login" href="login">Login</a>
+
+            <a class="login" href="register">Register</a>
+        </div>
+        <div class="clear"></div>
     </div>
+
     <div id="sidebar">
         <p><a href="index">Main</a></p>
         <p><a href="#">link</a></p>

@@ -1,5 +1,8 @@
 package org.base.controller;
 
+
+import org.apache.log4j.Logger;
+import org.apache.log4j.spi.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -12,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.sql.SQLException;
 
 
+
 @Controller
 public class MainController {
 
+    private final Logger logger=Logger.getLogger(MainController.class.getName());
 
     private Service service;
 
@@ -33,7 +38,19 @@ public class MainController {
     public String loginForm() throws SQLException {
         return "login";
     }
+    @RequestMapping(value = "/menu", method = RequestMethod.POST)
+    public String loginSubmit(@RequestParam String name, @RequestParam String pass, Model model) throws SQLException {
+        if (service.getUser(name).getName().equals(name) & service.getUser(name).getPassword().equals(pass)) {
+            service.setLogined(true);
+            model.addAttribute("name", name);
+            logger.info("Loginned successful.");
+            return "menu";
 
+
+        } else {
+            return "accessdeny";
+        }
+    }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String registration() throws SQLException {

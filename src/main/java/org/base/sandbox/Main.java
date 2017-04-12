@@ -1,21 +1,20 @@
 package org.base.sandbox;
 
-import org.base.dao.Dao;
-import org.base.dao.DaoFactory;
+
+import org.base.utils.HibernateUtil;
+import org.hibernate.SessionFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import javax.persistence.PersistenceException;
+
 
 public class Main {
-    public static void main(String args[]) throws SQLException {
-        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-        DaoFactory factory = (DaoFactory) context.getBean("daoFactory");
-        System.out.println(factory);
-        Connection connection = factory.getConnection();
-        System.out.println(connection);
-        Dao managerDao = (Dao)context.getBean("dao");
-        System.out.println(managerDao);
+    public static void main(String args[]) throws PersistenceException {
+       /* ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        Dao dao = (Dao) context.getBean("dao");*/
+
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+
     }
 }

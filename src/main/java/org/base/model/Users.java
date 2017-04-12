@@ -1,18 +1,25 @@
 package org.base.model;
 
-public class User {
+import javax.persistence.*;
+
+@Entity
+@Table(name = "users")
+public class Users {
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
+    @Column(name="name")
     private String name;
-
+    @Column(name = "email")
     private String email;
-
+    @Column(name="password")
     private String password;
 
-    public User() {
+    public Users() {
     }
 
-    public User(String name, String email, String password) {
+    public Users(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;

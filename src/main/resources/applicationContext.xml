@@ -25,7 +25,7 @@
 
     <bean id="dbProperties"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="classpath:postgre.properties"/>
+        <property name="location" value="classpath:postgreConnect.properties"/>
     </bean>
 
 

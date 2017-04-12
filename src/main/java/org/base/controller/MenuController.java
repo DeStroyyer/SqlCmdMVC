@@ -30,16 +30,6 @@ public class MenuController {
         }
     }
 
-    @RequestMapping(value = "/menu", method = RequestMethod.POST)
-    public String loginSubmit(@RequestParam String name, @RequestParam String pass, Model model) throws SQLException {
-        if (service.getUser(name).getName().equals(name) & service.getUser(name).getPassword().equals(pass)) {
-            service.setLogined(true);
-            model.addAttribute("name", name);
-            return "menu";
-        } else {
-            return "accessdeny";
-        }
-    }
 
     @RequestMapping(value = "/menu/list", method = RequestMethod.GET)
     public String listOfUsers(Model model) throws SQLException {
