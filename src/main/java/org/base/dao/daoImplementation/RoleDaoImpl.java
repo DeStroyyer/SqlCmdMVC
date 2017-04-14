@@ -2,8 +2,6 @@ package org.base.dao.daoImplementation;
 
 import org.base.dao.RoleDao;
 import org.base.model.Role;
-import org.base.model.User;
-import org.base.utils.HibernateUtil;
 import org.hibernate.Session;
 
 public class RoleDaoImpl implements RoleDao {

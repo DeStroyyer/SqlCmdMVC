@@ -1,10 +1,8 @@
 package org.base.controller;
 
-import org.base.service.Service;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.base.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -15,10 +13,19 @@ import java.util.List;
 public class MenuController {
     private Service service;
 
+    private UserService userService;
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
+
+
 
     public void setService(Service service) {
         this.service = service;
     }
+
 
     @RequestMapping(value = "/menu", method = RequestMethod.GET)
     public String showMenu() {
@@ -30,16 +37,12 @@ public class MenuController {
         }
     }
 
-
     @RequestMapping(value = "/menu/list", method = RequestMethod.GET)
     public String listOfUsers(Model model) throws SQLException {
-        if (service.isLogined()) {
-            List list = service.showUsers("users");
+            List list =userService.getList();
             model.addAttribute("list", list);
             return "list";
-        } else {
-            return "login";
-        }
+
     }
 
     @RequestMapping(value = "/menu/adduser", method = RequestMethod.GET)

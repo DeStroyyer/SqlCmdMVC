@@ -1,7 +1,5 @@
 package org.base.dao.daoImplementation;
 
-import org.base.dao.Dao;
-import org.base.dao.DaoFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

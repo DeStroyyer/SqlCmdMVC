@@ -10,6 +10,9 @@ import org.base.dao.daoImplementation.UserRolesDaoImpl;
 import org.base.model.Role;
 import org.base.model.User;
 import org.base.model.UserRoles;
+import org.base.service.UserService;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 import javax.persistence.PersistenceException;
@@ -18,31 +21,9 @@ import java.sql.SQLException;
 
 public class Main {
     public static void main(String args[]) throws PersistenceException, SQLException {
-       /* ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-        Dao dao = (Dao) context.getBean("dao");*/
+        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+        UserDao userDao = (UserDao) context.getBean("dao1");
+        UserService userService = (UserService) context.getBean("userService");
+        System.out.println(userService.getList());
+    }}
 
-        UserDao userDao = new UserDaoImpl();
-        RoleDao roleDao = new RoleDaoImpl();
-        UserRolesDao userRolesDao = new UserRolesDaoImpl();
-
-      /*  Role role = new Role();
-        role.setName("moderator");
-        role.setBenefits("edit content");
-        roleDao.addRole(role);
-
-        User user=new User();
-        user.setName("Tolyan");
-        user.setEmail("tolyan@gmail.com");
-        user.setPassword("1111");
-        userDao.addUser(user);
-
-        UserRoles userRoles = new UserRoles();
-        userRoles.setRole(role);
-        userRoles.setUser(user);
-        userRolesDao.addUserRole(userRoles);
-*/
-        System.out.println(userDao.getUsers());
-        System.out.println(userRolesDao.getUserRoles());
-
-    }
-} 

@@ -1,6 +1,5 @@
 package org.base.dao.daoImplementation;
 
-import org.base.dao.Dao;
 import org.base.model.User;
 import org.junit.*;
 import org.junit.runner.RunWith;

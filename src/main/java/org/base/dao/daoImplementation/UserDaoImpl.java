@@ -1,20 +1,27 @@
 package org.base.dao.daoImplementation;
 
-import org.apache.log4j.Logger;
 import org.base.dao.UserDao;
 import org.base.model.User;
-import org.base.utils.HibernateUtil;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class UserDaoImpl implements UserDao {
 
+    private SessionFactory sessionFactory;
+
+    @Autowired
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
     @Override
     public void addUser(User user) throws SQLException {
 
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.getCurrentSession()) {
             session.beginTransaction();
             session.save(user);
             session.getTransaction().commit();

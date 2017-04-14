@@ -1,9 +1,7 @@
 package org.base.dao.daoImplementation;
 
 import org.base.dao.UserRolesDao;
-import org.base.model.User;
 import org.base.model.UserRoles;
-import org.base.utils.HibernateUtil;
 import org.hibernate.Session;
 
 import java.util.List;

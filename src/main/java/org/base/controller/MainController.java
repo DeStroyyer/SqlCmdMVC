@@ -2,13 +2,9 @@ package org.base.controller;
 
 
 import org.apache.log4j.Logger;
-import org.apache.log4j.spi.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.MatrixVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.base.service.Service;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -22,8 +18,6 @@ public class MainController {
     private final Logger logger=Logger.getLogger(MainController.class.getName());
 
     private Service service;
-
-    private boolean logined = false;
 
     public void setService(Service service) {
         this.service = service;
