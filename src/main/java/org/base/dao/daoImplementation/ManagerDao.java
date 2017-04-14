@@ -3,8 +3,6 @@ package org.base.dao.daoImplementation;
 import org.base.dao.Dao;
 import org.base.dao.DaoFactory;
 import org.base.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.sql.*;
 import java.util.ArrayList;

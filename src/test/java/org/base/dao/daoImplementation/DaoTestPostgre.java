@@ -1,10 +1,7 @@
 package org.base.dao.daoImplementation;
 
 import org.base.dao.Dao;
-import org.base.dao.DaoFactory;
 import org.base.model.User;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,8 +1,6 @@
 package org.base.service.ServiceImplementation;
 
-import jdk.nashorn.internal.runtime.regexp.JoniRegExp;
 import org.base.dao.Dao;
-import org.base.dao.DaoFactory;
 import org.base.model.User;
 import org.base.service.Service;
 
