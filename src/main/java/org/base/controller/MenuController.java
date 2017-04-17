@@ -1,6 +1,7 @@
 package org.base.controller;
 
 import org.base.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,41 +12,28 @@ import java.util.List;
 
 @Controller
 public class MenuController {
-    private Service service;
 
     private UserService userService;
 
+    @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
 
-
-
-
-    public void setService(Service service) {
-        this.service = service;
-    }
-
-
     @RequestMapping(value = "/menu", method = RequestMethod.GET)
-    public String showMenu() {
-
-        if (service.isLogined()) {
-            return "menu";
-        } else {
-            return "login";
-        }
+    public String openMenu() {
+        return "menu";
     }
 
     @RequestMapping(value = "/menu/list", method = RequestMethod.GET)
-    public String listOfUsers(Model model) throws SQLException {
-            List list =userService.getList();
-            model.addAttribute("list", list);
-            return "list";
+    public String openListOfUsers(Model model) throws SQLException {
+        List list = userService.getList();
+        model.addAttribute("list", list);
+        return "list";
 
     }
 
-    @RequestMapping(value = "/menu/adduser", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/menu/adduser", method = RequestMethod.GET)
     public String addUser() {
         return "addform";
     }
@@ -82,7 +70,7 @@ public class MenuController {
         } else {
             return "login";
         }
-    }
+    }*/
 }
 
 

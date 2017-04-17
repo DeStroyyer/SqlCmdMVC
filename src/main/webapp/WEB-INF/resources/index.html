@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+<script>
+    $.ajax({
+        url: "index.html",
+        datatype:"json",
+        type: "POST",
+        success:function (data) {
+           var list= JSON.parse(data);
+            for(var user in list){
+                $.html("<p>"+user+"</p>");
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

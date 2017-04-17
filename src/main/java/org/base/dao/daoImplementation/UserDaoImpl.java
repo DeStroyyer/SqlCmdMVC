@@ -33,7 +33,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void deleteUser(User user) throws SQLException {
 
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.delete(user);
             session.getTransaction().commit();
@@ -46,7 +46,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User getUser(int id) throws SQLException {
         User user = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             user = (User) session.get(User.class, id);
         } catch (Exception e) {
             e.printStackTrace();
@@ -57,7 +57,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public List<User> getUsers() throws SQLException {
         List<User> users = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             users = session.createCriteria(User.class).list();
         } catch (Exception e) {
             e.printStackTrace();

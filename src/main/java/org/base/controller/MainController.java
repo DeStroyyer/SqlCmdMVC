@@ -1,66 +1,45 @@
 package org.base.controller;
 
-
-import org.apache.log4j.Logger;
+import com.google.gson.Gson;
+import org.base.model.User;
+import org.base.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.sql.SQLException;
-
-
+import java.util.List;
 
 @Controller
 public class MainController {
+    private Gson gson;
 
-    private final Logger logger=Logger.getLogger(MainController.class.getName());
+    private UserService userService;
 
-    private Service service;
-
-    public void setService(Service service) {
-        this.service = service;
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
-    @RequestMapping(value = "/")
-    public String start() {
+    @Autowired
+    public void setGson(Gson gson) {
+        this.gson = gson;
+    }
+
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String returnIndexPage() {
         return "index";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String loginForm() throws SQLException {
-        return "login";
-    }
-    @RequestMapping(value = "/menu", method = RequestMethod.POST)
-    public String loginSubmit(@RequestParam String name, @RequestParam String pass, Model model) throws SQLException {
-        if (service.getUser(name).getName().equals(name) & service.getUser(name).getPassword().equals(pass)) {
-            service.setLogined(true);
-            model.addAttribute("name", name);
-            logger.info("Loginned successful.");
-            return "menu";
-
-
-        } else {
-            return "accessdeny";
-        }
-    }
-
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String registration() throws SQLException {
-        return "register";
-    }
-
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String registration(@RequestParam String name, @RequestParam String email, @RequestParam String pass) throws SQLException {
-        String table = "user";
-        if (!service.getUser(name).getName().equals(name) & !service.getUser(name).getEmail().equals(email)) {
-            String[] params = {name, email, pass};
-            service.insertUser(table, params);
-            return "redirect:login";
-        } else {
-            return "redirect:register";
-        }
+    @RequestMapping(value = "index", method = RequestMethod.GET)
+    @ResponseBody
+    public String start() {
+        List<User> list = userService.getList();
+        String json = gson.toJson(list);
+        return json;
     }
 
 

@@ -4,9 +4,18 @@
 <head>
     <title>List</title>
     <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/index.css" />">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 </head>
 <body>
+<script>
+    var q=jQuery.noConflict();
+    q(document).ready(function () {
+        q('#add').click(function () {
+          q("#addForm").show();
+        });
+    });
+
+</script>
 <div id="container">
     <div id="header">Forum
         <div id="auth"><a href="login">Login</a><a href="register">Register</a></div>
@@ -40,6 +49,21 @@
                 </tr>
             </c:forEach>
         </table>
+        <button id="add">Add User</button>
+
+        <form id="addform" method="Post" style="display: none">
+
+            <label for="name">Name:</label>
+            <input id="name" name="name" type="text" size="25" maxlength="30" value=""/> <br/>
+
+            <label for="email">Email:</label>
+            <input id="email" name="email" type="email" size="25" maxlength="30" value=""/> <br/>
+
+            <label for="password">Password:</label>
+            <input id="password" name="password" type="password" size="25" maxlength="30" value=""/> <br/>
+
+            <input type="submit" value="submit"/>
+        </form>
     </div>
     <div id="footer">&copy; Ростислав</div>
 </div>
