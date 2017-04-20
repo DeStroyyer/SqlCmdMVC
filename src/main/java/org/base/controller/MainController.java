@@ -1,15 +1,13 @@
 package org.base.controller;
 
 import com.google.gson.Gson;
+
 import org.base.model.User;
 import org.base.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.json.Json;
 import java.util.List;
 
 @Controller
@@ -18,28 +16,52 @@ public class MainController {
 
     private UserService userService;
 
-    @Autowired
-    public void setUserService(UserService userService) {
+    public MainController(Gson gson, UserService userService) {
+        this.gson = gson;
         this.userService = userService;
     }
-
-    @Autowired
-    public void setGson(Gson gson) {
-        this.gson = gson;
-    }
-
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String returnIndexPage() {
         return "index";
     }
 
-    @RequestMapping(value = "index", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/userlist", method = RequestMethod.GET)
+    public
     @ResponseBody
-    public String start() {
+    String retrieveUsersList() {
         List<User> list = userService.getList();
-        String json = gson.toJson(list);
-        return json;
+        String jsonlist = gson.toJson(list);
+        return jsonlist;
+    }
+
+    @RequestMapping(value = "/adduser", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    void addUser(@RequestBody String json) {
+        User user = gson.fromJson(json, User.class);
+        userService.addUser(user);
+
+    }
+
+    @RequestMapping(value = "/deleteuser", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    void deleteUser(@RequestBody String json) {
+        int id=gson.fromJson(json,Integer.class);
+        User user = userService.getUser(id);
+        userService.deleteUser(user);
+    }
+    @RequestMapping(value = "/updateuser", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    void updateUser(@RequestBody String json) {
+        User newUserData=gson.fromJson(json,User.class);
+        int id=newUserData.getId();
+        User oldUserData = userService.getUser(id);
+        if(!newUserData.getName().equals(null))
+        userService.editUser();
     }
 
 
