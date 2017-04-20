@@ -57,11 +57,30 @@ public class MainController {
     public
     @ResponseBody
     void updateUser(@RequestBody String json) {
+        User updatedUserData=new User();
         User newUserData=gson.fromJson(json,User.class);
         int id=newUserData.getId();
+        String newName=newUserData.getName();
+        String newEmail=newUserData.getEmail();
+        String newPassword=newUserData.getPassword();
         User oldUserData = userService.getUser(id);
-        if(!newUserData.getName().equals(null))
-        userService.editUser();
+        String oldName=oldUserData.getName();
+        String oldEmail=oldUserData.getEmail();
+        String oldPassword=oldUserData.getPassword();
+        if(!newName.equals(null)&!newName.equals(oldName)&!newName.equals("")){
+            updatedUserData.setName(newName);
+        }else{updatedUserData.setName(oldName);}
+        if(!newEmail.equals(null)&!newEmail.equals(oldEmail)&!newEmail.equals("")){
+            updatedUserData.setEmail(newEmail);
+        }else{
+            updatedUserData.setEmail(oldEmail);
+        }
+        if(!newPassword.equals(null)&!newPassword.equals(oldPassword)&!newPassword.equals("")){
+            updatedUserData.setPassword(newPassword);
+        }else{
+            updatedUserData.setPassword(oldPassword);
+        }
+        userService.editUser(id,updatedUserData);
     }
 
 

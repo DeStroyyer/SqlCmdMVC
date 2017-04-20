@@ -5,8 +5,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.jws.soap.SOAPBinding;
-import java.sql.SQLException;
 import java.util.List;
 
 public class UserService {
@@ -46,14 +44,15 @@ public class UserService {
         }
     }
 
-    public void editUser(int id, String name, String email, String password) {
+    public void editUser(int id, User updateDate) {
 
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            User user = session.load(User.class, id);
-            user.setName(name);
-            user.setEmail(email);
-            user.setPassword(password);
+             User user = session.load(User.class, id);
+           // User user = session.get(User.class, id);
+            user.setName(updateDate.getName());
+            user.setEmail(updateDate.getEmail());
+            user.setPassword(updateDate.getPassword());
             session.update(user);
             session.getTransaction().commit();
         } catch (Exception e) {

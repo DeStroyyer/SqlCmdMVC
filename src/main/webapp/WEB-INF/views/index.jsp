@@ -93,7 +93,7 @@
             success: function (data) {
                 var list = JSON.parse(data);
                 for (var user = 0; user < list.length; user++) {
-                    $("#list").append("<tr id='"+user+"'><td>" + list[user].id + "</td><td>" + list[user].name + "</td><td>" + list[user].email + "</td><td><button id='edit' type='button'onclick='editUser(" + list[user].id + ","+user+")'>Edit</button></td><td><button id='delete' type='button' onclick='deleteuser(" + list[user].id + ")'>Delete</button></td></tr>");
+                    $("#list").append("<tr id='" + user + "'><td>" + list[user].id + "</td><td>" + list[user].name + "</td><td>" + list[user].email + "</td><td><button id='edit' type='button'onclick='editUser(" + list[user].id + "," + user + ")'>Edit</button></td><td><button id='delete' type='button' onclick='deleteuser(" + list[user].id + ")'>Delete</button></td></tr>");
                 }
             }
 
@@ -121,23 +121,25 @@
 
         });
     }
-    function editUser(id,tr) {
-            $(document.getElementById(tr)).after("<tr><td></td><td ><input id='editname' type='text'></td><td><input id='editemail' type='email'></td><td colspan='2'><button id='OK' type='button'>Accept</button></td></tr>");
-        $("#OK").click(function () {
-            var name = $("#editname").val();
-            var email = $("#editemail").val();
+    function editUser(id, tr) {
 
-        $.ajax({
-            url: "updateuser",
-            datatype: "json",
-            type: "POST",
-            data: JSON.stringify(id,name,email),
-            contentType: "application/json",
-            success: function () {
-                alert("User updated.")
-            }
+        $(document.getElementById(tr)).after("<tr><td></td><td ><input id='editname' type='text'></td><td><input id='editemail' type='email'></td><td colspan='2'><button id='OK' type='button'>Accept</button></td></tr>");
+        $("#OK").click(function () {
+           var name = $("#editname").val();
+           var email = $("#editemail").val();
+            var password=null;
+            var json = {id: id, name: name, email: email,password:password};
+            $.ajax({
+                url: "updateuser",
+                datatype: "json",
+                type: "POST",
+                data: JSON.stringify(json),
+                contentType: "application/json",
+                success: function () {
+                    alert("User updated.")
+                }
+            });
         });
-    });
     }
 
 </script>
